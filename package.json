@@ -3,6 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.19.0",
   "description": "",
   "author": "Jimmy Lew",
   "license": "MIT",
