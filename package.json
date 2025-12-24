@@ -7,8 +7,7 @@
   "author": "Jimmy Lew",
   "license": "MIT",
   "exports": [
-    "./dist/start-bot.js",
-    "./dist/start-manager.js"
+    "./dist/start.mjs"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -48,9 +47,16 @@
     "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.39.2",
     "eslint-plugin-format": "^1.1.0",
+    "simple-git-hooks": "^2.13.1",
     "tsdown": "^0.18.1",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
     "vitest": "^3.2.4"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
