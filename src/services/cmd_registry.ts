@@ -7,7 +7,6 @@ import { REST } from '@discordjs/rest'
 import { Routes } from 'discord.js'
 import { CommandStore } from '../commands'
 import { config } from '../config'
-import { logger } from '../logger'
 
 export class CommandRegistry {
   rest: REST = new REST({ version: '10' }).setToken(config.client.token)
@@ -33,10 +32,14 @@ export class CommandRegistry {
   async register() {
     const [local_on_remote, local_only, ..._] = await this.resolve_local_and_remote()
     if (local_only.length > 0) {
-      local_only.map(async (cmd) => { await this.rest.post(this.route, { body: cmd }) })
+      local_only.map(async (cmd) => {
+        await this.rest.post(this.route, { body: cmd })
+      })
     }
     if (local_on_remote.length > 0) {
-      local_on_remote.map(async (cmd) => { await this.rest.post(this.route, { body: cmd }) })
+      local_on_remote.map(async (cmd) => {
+        await this.rest.post(this.route, { body: cmd })
+      })
     }
   }
 

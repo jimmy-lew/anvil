@@ -1,5 +1,4 @@
-import { confirm, isCancel, outro, select, tasks, text } from '@clack/prompts'
-import { logger } from './logger/index.js'
+import { confirm, isCancel, outro, select, tasks } from '@clack/prompts'
 
 import { CommandRegistry } from './services'
 

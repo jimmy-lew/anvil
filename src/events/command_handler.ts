@@ -5,8 +5,6 @@ import { AutocompleteInteraction, ChatInputCommandInteraction, Events, MessageFl
 import { RateLimiter } from 'discord.js-rate-limiter'
 
 import { CommandDeferType, CommandStore } from '../commands/index.js'
-import { config } from '../config.js'
-import { logger } from '../logger/index.js'
 import { EventHandler } from './index'
 
 export default class CommandHandler extends EventHandler {
