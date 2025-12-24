@@ -24,3 +24,5 @@ dist
 **.bak**
 
 .vscode/*
+
+.eslintcache
