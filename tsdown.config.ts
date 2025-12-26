@@ -4,13 +4,8 @@ export default defineConfig(
   [
     {
       entry: ['./src/start.ts'],
-      // unbundle: true,
       outDir: 'dist',
-      logLevel: 'error',
-    },
-    {
-      entry: ['./src/cli.ts'],
-      outDir: 'dist',
+      minify: true,
       logLevel: 'error',
     },
   ],
