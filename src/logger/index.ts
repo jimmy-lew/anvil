@@ -20,13 +20,12 @@ const file_transport_options = {
   frequency: 'daily',
   mkdir: true,
 }
-// eslint-disable-next-line unused-imports/no-unused-vars
-const disc_bot_transport = null
 
 const pino_transport = transport({
   targets: [
     is_dev_env ? { target: 'pino-pretty', options: pretty_stdout_options } : null,
     { target: 'pino-roll', level: 'trace', options: file_transport_options },
+    { target: 'pino-sse', level: 'trace' },
   ],
 })
 
