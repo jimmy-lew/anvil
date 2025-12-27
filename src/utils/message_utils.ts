@@ -4,6 +4,7 @@ import {
   EmojiResolvable,
   Message,
   MessageEditOptions,
+  MessageMentions,
   MessageReaction,
   PartialMessage,
   StartThreadOptions,
@@ -75,19 +76,27 @@ export async function send_message(
   return setTimeout(async () => await target.send(opts), delay)
 }
 
+const _parse_mentions = (mentions: MessageMentions) => {
+  if (!mentions) return 'NULL'
+  if (mentions.everyone) return '@everyone'
+  return 'NULL'
+}
+
 export const parse_message_object = async (raw: Message | PartialMessage) => {
   let msg = raw
+  let mentions = ''
   try {
     msg = raw.partial ? (await raw.fetch()) : raw as Message
+    mentions = _parse_mentions(msg.mentions)
   }
   catch (err){ }
   return {
     channel: msg.channelId,
-    id: msg.id,
+    msg_id: msg.id,
     author_id: msg.author?.id,
     author_username: msg.author?.username,
     content: msg.content,
-    mentions: msg.mentions,
+    mentions,
     created: msg.createdTimestamp,
     edited: msg.editedTimestamp ?? 0
   }
