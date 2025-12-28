@@ -16,6 +16,6 @@ export default class MessageHandler extends EventHandler {
     const parsed_msg = await parse_message_object(cur)
     // Highly dependent on cache
     // TODO: More robust caching strategy
-    logger.trace({ ...parsed_msg, prev_content: prev.content }, 'Messaged edited')
+    logger.trace({ ...parsed_msg, prev_content: prev.content }, event.split(/(?=[A-Z])/).join(' ').toUpperCase())
   }
 }
