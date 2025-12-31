@@ -33,7 +33,6 @@
     "discord.js-rate-limiter": "1.3.2",
     "luxon": "3.7.1",
     "pino": "9.9.0",
-    "pino-caller": "^4.0.0",
     "pino-discord-webhook": "^0.1.7",
     "pino-roll": "^4.0.0",
     "pino-sse": "^1.0.4",

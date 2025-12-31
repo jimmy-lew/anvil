@@ -1,21 +1,14 @@
-import type { PrettyOptions } from 'pino-pretty'
+import type { Logger } from 'pino'
 import { join } from 'node:path'
 import { DiscordAPIError } from 'discord.js'
-import { pino, transport } from 'pino'
-import pinoCaller from 'pino-caller'
+import { pino, symbols, transport } from 'pino'
 import { err as std_err_serializer } from 'pino-std-serializers'
+import { v4 as uuid } from 'uuid'
 
-import { config } from '../config'
+const { asJsonSym } = symbols
+const PINO_MOD_UNIX = 'node_modules/pino'
 
-const is_dev_env = config.env === 'dev'
-
-const pretty_stdout_options: PrettyOptions = {
-  colorize: true,
-  ignore: 'pid,hostname',
-  translateTime: 'yyyy-mm-dd HH:MM:ss.l',
-}
-const file_transport_options = {
-  ignore: 'pid,hostname',
+const FILE_OPT = {
   file: join('logs', 'log.jsonl'),
   frequency: 'daily',
   mkdir: true,
@@ -23,8 +16,7 @@ const file_transport_options = {
 
 const pino_transport = transport({
   targets: [
-    is_dev_env ? { target: 'pino-pretty', options: pretty_stdout_options } : null,
-    { target: 'pino-roll', level: 'trace', options: file_transport_options },
+    { target: 'pino-roll', level: 'trace', options: FILE_OPT },
     { target: 'pino-sse', level: 'trace' },
   ],
 })
@@ -43,15 +35,27 @@ function err_serializer(err: Error) {
   }
 }
 
-export const logger = pinoCaller(pino({
+function trace(inst: Logger<never, boolean>) {
+  function get(target, name) {
+    return name === asJsonSym ? asJson : target[name]
+  }
+
+  function asJson(...args) {
+    args[0] = args[0] || Object.create(null)
+    const [stack, ..._] = new Error('_').stack.split('\n').slice(2).filter(s => !s.includes(PINO_MOD_UNIX))
+    args[0].caller = stack.substring(7)
+    return inst[asJsonSym].apply(this, args)
+  }
+  return new Proxy(inst, { get })
+}
+
+export const logger = trace(pino({
   level: 'trace',
   serializers: {
     err: err_serializer,
   },
   formatters: {
-    log: (rec) => {
-      return rec
-    },
     bindings: () => ({}),
   },
+  mixin: () => ({ log_id: uuid() }),
 }, pino_transport))
