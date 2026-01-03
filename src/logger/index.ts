@@ -35,7 +35,7 @@ function err_serializer(err: Error) {
   }
 }
 
-function trace(inst: Logger<never, boolean>) {
+function trace(inst: Logger<never, boolean>): Logger {
   function get(target, name) {
     return name === asJsonSym ? asJson : target[name]
   }
