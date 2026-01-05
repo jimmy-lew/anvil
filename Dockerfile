@@ -1,22 +1,25 @@
-FROM node:16
+FROM node:25-trixie-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Create app directory
+RUN npm install -g pnpm@latest
+
+COPY . /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-# Install packages
-RUN npm install
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
-# Copy the app code
-COPY . .
-
-# Build the project
-RUN npm run build
+FROM base
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
 
 # Expose ports
-EXPOSE 3001
+EXPOSE 3333
 
 # Run the application
 CMD [ "node", "dist/start.mjs" ]
