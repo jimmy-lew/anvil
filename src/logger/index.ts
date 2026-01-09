@@ -35,6 +35,15 @@ function err_serializer(err: Error) {
   }
 }
 
+function parseStackLine(line: string) {
+  const match = line.match(/^(.*)\s\((.*)\)$/)
+
+  if (!match)
+    return { func: '', file_loc: line }
+
+  return { func: match[1], file_loc: match[2] }
+}
+
 function trace(inst: Logger<never, boolean>): Logger {
   function get(target, name) {
     return name === asJsonSym ? asJson : target[name]
@@ -43,7 +52,9 @@ function trace(inst: Logger<never, boolean>): Logger {
   function asJson(...args) {
     args[0] = args[0] || Object.create(null)
     const [stack, ..._] = new Error('_').stack.split('\n').slice(2).filter(s => !s.includes(PINO_MOD_UNIX))
-    args[0].caller = stack.substring(7)
+    const { func, file_loc } = parseStackLine(stack.substring(7))
+    args[0].func = func
+    args[0].file_loc = file_loc
     return inst[asJsonSym].apply(this, args)
   }
   return new Proxy(inst, { get })
