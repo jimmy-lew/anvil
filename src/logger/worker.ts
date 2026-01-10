@@ -40,7 +40,7 @@ export default async function transport(..._args) {
   // @ts-expect-error pino jank
   return build((stream) => {
     const multi = pino.multistream(streams, { dedupe: false })
-    stream.on('data', (chunk) => {
+    stream.on('data', function (chunk) {
       const { lastTime, lastMsg, lastObj, lastLevel } = this
       // @ts-expect-error pino jank
       multi.lastLevel = lastLevel
