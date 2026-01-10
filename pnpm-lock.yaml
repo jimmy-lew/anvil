@@ -26,6 +26,9 @@ importers:
       luxon:
         specifier: 3.7.1
         version: 3.7.1
+      nanoid:
+        specifier: ^5.1.6
+        version: 5.1.6
       pino:
         specifier: 9.9.0
         version: 9.9.0
@@ -37,13 +40,10 @@ importers:
         version: 4.0.0
       pino-sse:
         specifier: latest
-        version: 1.0.5(synckit@0.11.11)(typescript@5.9.3)
+        version: 1.0.6(synckit@0.11.11)(typescript@5.9.3)
       pino-std-serializers:
         specifier: ^7.0.0
         version: 7.0.0
-      uuid:
-        specifier: ^13.0.0
-        version: 13.0.0
       vitest-mock-extended:
         specifier: ^3.1.0
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@25.0.3)(yaml@2.8.2))
@@ -467,6 +467,12 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@hono/node-server@1.19.8':
+    resolution: {integrity: sha512-0/g2lIOPzX8f3vzW1ggQgvG5mjtFBDBHFAzI5SFAi2DzSqS9luJwqg9T6O/gKYLi+inS7eNxBeIFkkghIPvrMA==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1727,6 +1733,10 @@ packages:
   help-me@5.0.0:
     resolution: {integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==}
 
+  hono@4.11.3:
+    resolution: {integrity: sha512-PmQi306+M/ct/m5s66Hrg+adPnkD5jiO6IjA7WhWw0gSBSo1EcRegwuI1deZ+wd5pzCGynCcn2DprnE4/yEV4w==}
+    engines: {node: '>=16.9.0'}
+
   hookable@6.0.1:
     resolution: {integrity: sha512-uKGyY8BuzN/a5gvzvA+3FVWo0+wUjgtfSdnmjtrOVwQCZPHpHDH2WRO3VZSOeluYrHoDCiXFffZXs8Dj1ULWtw==}
 
@@ -2049,6 +2059,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.1.6:
+    resolution: {integrity: sha512-c7+7RQ+dMB5dPwwCp4ee1/iV/q2P6aK1mTZcfr1BTuVlyW9hJYiMPybJCcnBlQtuSmTIWNeazm/zqNoZSSElBg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -2152,8 +2167,8 @@ packages:
   pino-roll@4.0.0:
     resolution: {integrity: sha512-axI1aQaIxXdw1F4OFFli1EDxIrdYNGLowkw/ZoZogX8oCSLHUghzwVVXUS8U+xD/Savwa5IXpiXmsSGKFX/7Sg==}
 
-  pino-sse@1.0.5:
-    resolution: {integrity: sha512-kGPzHgHEMY5ZMGRIr6/EOsRch+KmmLjMUgZ66ofk2QcR2WH+5K1jMZoJLnO+nMPrrwv+NtoCAU98igK/i13V+g==}
+  pino-sse@1.0.6:
+    resolution: {integrity: sha512-RcLYRyxYPiCNPDN+/wA4nv3bmZ1QpD7IRyWTA9rY4cDOlp+0voUvOLwOiBxaGk2HFnWEQItq4av0LalURl8cSA==}
     hasBin: true
 
   pino-std-serializers@7.0.0:
@@ -2562,10 +2577,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3:
-    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3}
-    version: 20.56.0
-
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
@@ -2622,17 +2633,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
-    hasBin: true
-
-  uws-cors@1.0.0:
-    resolution: {integrity: sha512-U2Xc20w0jy6qCng6BxAnamnOQYwkSxzOx/hB4I/XGUBISGB38ZaKyZJXRwe/SKwJztmhIUz+q/JDPkgPeI2hlA==}
-    version: 1.0.0
-    engines: {node: '>=22'}
-    peerDependencies:
-      uWebSockets.js: '*'
 
   vite-node@3.2.4:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
@@ -3116,6 +3116,10 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
+
+  '@hono/node-server@1.19.8(hono@4.11.3)':
+    dependencies:
+      hono: 4.11.3
 
   '@humanfs/core@0.19.1': {}
 
@@ -4332,6 +4336,8 @@ snapshots:
 
   help-me@5.0.0: {}
 
+  hono@4.11.3: {}
+
   hookable@6.0.1: {}
 
   html-entities@2.6.0: {}
@@ -4816,6 +4822,8 @@ snapshots:
 
   nanoid@3.3.11: {}
 
+  nanoid@5.1.6: {}
+
   natural-compare@1.4.0: {}
 
   natural-orderby@5.0.0: {}
@@ -4928,14 +4936,14 @@ snapshots:
       date-fns: 4.1.0
       sonic-boom: 4.2.0
 
-  pino-sse@1.0.5(synckit@0.11.11)(typescript@5.9.3):
+  pino-sse@1.0.6(synckit@0.11.11)(typescript@5.9.3):
     dependencies:
+      '@hono/node-server': 1.19.8(hono@4.11.3)
       eventsource: 4.1.0
+      hono: 4.11.3
+      nanoid: 5.1.6
       pino-abstract-transport: 3.0.0
       tsdown: 0.18.4(synckit@0.11.11)(typescript@5.9.3)
-      uWebSockets.js: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3
-      uuid: 13.0.0
-      uws-cors: 1.0.0(uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3)
     transitivePeerDependencies:
       - '@arethetypeswrong/core'
       - '@ts-macro/tsc'
@@ -5386,8 +5394,6 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3: {}
-
   ufo@1.6.1: {}
 
   unconfig-core@7.4.2:
@@ -5441,12 +5447,6 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
-
-  uuid@13.0.0: {}
-
-  uws-cors@1.0.0(uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3):
-    dependencies:
-      uWebSockets.js: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/d04e707a1292928d50163ff7545e45c3e84c5ec3
 
   vite-node@3.2.4(@types/node@25.0.3)(yaml@2.8.2):
     dependencies:
