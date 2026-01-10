@@ -1,10 +1,11 @@
 import type { CommandInteraction } from 'discord.js'
-import type { Command } from '../commands/index.js'
+import type { Command } from '../commands'
+import type { EventRecord } from './index'
 
 import { AutocompleteInteraction, ChatInputCommandInteraction, Events, MessageFlags } from 'discord.js'
-import { RateLimiter } from 'discord.js-rate-limiter'
 
-import { CommandDeferType, CommandStore } from '../commands/index.js'
+import { RateLimiter } from 'discord.js-rate-limiter'
+import { CommandDeferType, CommandStore } from '../commands'
 import { EventHandler } from './index'
 
 export default class CommandHandler extends EventHandler {
@@ -28,7 +29,7 @@ export default class CommandHandler extends EventHandler {
     await intr.respond(choices)
   }
 
-  async process(event: Events, intr: CommandInteraction | AutocompleteInteraction): Promise<void> {
+  async process(event: Events, event_record: EventRecord, intr: CommandInteraction | AutocompleteInteraction): Promise<void> {
     const is_self_or_bot = intr.user.id === intr.client.user?.id || intr.user.bot
     if (is_self_or_bot)
       return

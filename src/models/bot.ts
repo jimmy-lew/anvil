@@ -31,7 +31,7 @@ export class Anvil extends Client {
     for (const event_handler of this.event_handlers) {
       logger.debug(`Registering ${event_handler.event_name}...`)
       // @ts-expect-error
-      event_handler.event_name.map((event: Events) => this.on(event, (...args) => event_handler.process(event, ...args)))
+      event_handler.event_name.map((event: Events) => this.on(event, (...args) => event_handler._process(event, ...args)))
     }
 
     this.rest.on(RESTEvents.RateLimited, this.on_rate_limit)

@@ -1,21 +1,21 @@
 import type { Message } from 'discord.js'
+import type { EventRecord } from './index'
 import { Events } from 'discord.js'
 
-import { logger } from '../logger/index.js'
-import { parse_message_object } from '../utils/message_utils.js'
-import { EventHandler } from './index.js'
+import { parse_message_object } from '../utils'
+import { EventHandler } from './index'
 
+// Highly dependent on cache
+// TODO: More robust caching strategy
 export default class MessageHandler extends EventHandler {
   event_name = [Events.MessageUpdate]
 
-  public async process(event: Events, prev: Message, cur: Message): Promise<void> {
+  public async process(event: Events, event_record: EventRecord, prev: Message, cur: Message): Promise<void> {
     const is_self = cur.author.id === cur.client.user?.id
     if (cur.system || !cur.author || is_self)
       return
 
     const parsed_msg = await parse_message_object(cur)
-    // Highly dependent on cache
-    // TODO: More robust caching strategy
-    logger.trace({ ...parsed_msg, prev_content: prev.content }, event.split(/(?=[A-Z])/).join(' ').toUpperCase())
+    event_record.meta = parsed_msg
   }
 }

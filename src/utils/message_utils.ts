@@ -94,7 +94,7 @@ export const parse_message_object = async (raw: Message | PartialMessage) => {
     channel: msg.channelId,
     msg_id: msg.id,
     author_id: msg.author?.id,
-    author_username: msg.author?.username,
+    username: msg.author?.username,
     content: msg.content,
     mentions,
     created: msg.createdTimestamp,
