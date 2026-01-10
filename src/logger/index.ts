@@ -1,20 +1,13 @@
 import type { Logger } from 'pino'
 import { DiscordAPIError } from 'discord.js'
 import { nanoid } from 'nanoid'
-import { pino, symbols, transport } from 'pino'
+import { pino, symbols } from 'pino'
 import { err as std_err_serializer } from 'pino-std-serializers'
+
+import { stream } from './stream'
 
 const { asJsonSym } = symbols
 const PINO_MOD_UNIX = 'node_modules/pino'
-
-const FILE_OPT = { file: 'logs/log.jsonl', size: '10m', mkdir: true }
-
-const pino_transport = transport({
-  targets: [
-    { target: 'pino-roll', level: 'trace', options: FILE_OPT },
-    { target: 'pino-sse', level: 'trace' },
-  ],
-})
 
 function err_serializer(err: Error) {
   if (!(err instanceof DiscordAPIError))
@@ -44,7 +37,7 @@ function hooks(inst: Logger<never, boolean>): Logger {
     return name === asJsonSym ? asJson : target[name]
   }
 
-  function trace(ctx: any) {
+  function _trace(ctx: any) {
     const [stack, ..._] = new Error('_').stack.split('\n').slice(3).filter(s => !s.includes(PINO_MOD_UNIX))
     const { func, file_loc } = parseStackLine(stack.substring(7))
     ctx.func = func
@@ -61,7 +54,6 @@ function hooks(inst: Logger<never, boolean>): Logger {
 
   function asJson(...args) {
     const ctx = args[0] || {}
-    // trace(ctx)
     args = overwiteTime(ctx, ...args)
     args[0] = ctx
     return inst[asJsonSym].apply(this, args)
@@ -78,4 +70,4 @@ export const logger = hooks(pino({
     bindings: () => ({}),
   },
   mixin: () => ({ log_id: nanoid() }),
-}, pino_transport))
+}, stream()))

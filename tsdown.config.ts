@@ -3,9 +3,12 @@ import { defineConfig } from 'tsdown'
 export default defineConfig(
   [
     {
-      entry: ['./src/start.ts'],
+      entry: {
+        start: './src/start.ts',
+        worker: './src/logger/worker.ts',
+      },
       outDir: 'dist',
-      minify: true,
+      minify: false,
       logLevel: 'error',
     },
   ],
