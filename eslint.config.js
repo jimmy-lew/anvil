@@ -6,10 +6,6 @@ export default antfu(
   {
     formatters: true,
     ignores: ['tests', 'src/utils'],
-    markdown: {
-      overrides: {
-      },
-    },
     pnpm: true,
   },
 ).removeRules(
@@ -24,6 +20,4 @@ export default antfu(
   'ts/no-empty-object-type',
   'ts/no-invalid-this',
   'ts/no-unnecessary-type-constraint',
-  'vue/no-template-shadow',
-  'vue/no-v-text-v-html-on-component',
 )

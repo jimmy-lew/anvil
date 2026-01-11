@@ -19,12 +19,12 @@ export interface EventRecord {
 
 export abstract class EventHandler {
   event_name: Events[]
-  abstract process(event_name: Events, event: EventRecord, ..._args: any[]): Promise<void>
+  abstract process(name: Events, record: EventRecord, ...args: any[]): Promise<void>
 
   async _process(event_name: Events, ...args: any[]): Promise<void> {
     const start = Date.now()
     const event: EventRecord = {
-      event_name: event_name.split(/(?=[A-Z])/).join(' ').toUpperCase(),
+      event_name: event_name.split(/(?=[A-Z])/).join('_').toUpperCase(),
       time: start,
       environment: 'dev',
     }
