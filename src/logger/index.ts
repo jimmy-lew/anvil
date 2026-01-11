@@ -1,34 +1,16 @@
 import type { Logger } from 'pino'
-import { DiscordAPIError } from 'discord.js'
 import { nanoid } from 'nanoid'
 import { pino, symbols } from 'pino'
-import { err as std_err_serializer } from 'pino-std-serializers'
 
 import { stream } from './stream'
 
 const { asJsonSym } = symbols
 const PINO_MOD_UNIX = 'node_modules/pino'
 
-function err_serializer(err: Error) {
-  if (!(err instanceof DiscordAPIError))
-    return std_err_serializer(err)
-
-  return {
-    type: 'DiscordAPIError',
-    message: err.message,
-    code: err.code,
-    method: err.method,
-    url: err.url,
-    stack: err.stack,
-  }
-}
-
 function parseStackLine(line: string) {
   const match = line.match(/^(.*)\s\((.*)\)$/)
-
   if (!match)
     return { func: '', file_loc: line }
-
   return { func: match[1], file_loc: match[2] }
 }
 
@@ -63,11 +45,6 @@ function hooks(inst: Logger<never, boolean>): Logger {
 
 export const logger = hooks(pino({
   level: 'trace',
-  serializers: {
-    err: err_serializer,
-  },
-  formatters: {
-    bindings: () => ({}),
-  },
+  formatters: { bindings: () => ({}) },
   mixin: () => ({ log_id: nanoid() }),
 }, stream()))
