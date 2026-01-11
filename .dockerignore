@@ -10,3 +10,6 @@
 
 # Files
 /npm-debug.log
+*.bak
+*.test.*
+.env
