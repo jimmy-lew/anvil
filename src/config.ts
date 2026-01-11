@@ -24,4 +24,7 @@ export interface Config {
 }
 
 const config_file = readFileSync(new URL('../config/config.yaml', import.meta.url), 'utf-8')
-export const config = Object.freeze(parse(config_file)) as Readonly<Config>
+const _config = parse(config_file) as Config
+_config.client.token = process.env.DISCORD_BOT_TOKEN
+_config.client.id = process.env.DISCORD_CLIENT_ID
+export const config = Object.freeze(_config)

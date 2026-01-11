@@ -6,8 +6,6 @@ import { config } from './config'
 import { logger } from './logger'
 import { load_structures } from './utils'
 
-process.loadEnvFile()
-
 const event_structs = import.meta.glob('./events/**/*.ts', { import: 'default' })
 const event_predicate = (_: unknown): _ is EventHandler => true
 
