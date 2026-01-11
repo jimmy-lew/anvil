@@ -1,11 +1,10 @@
 import type { MessageContextMenuCommandInteraction, PermissionsString } from 'discord.js'
-import type { Command } from '../index.js'
+import type { Command } from '../index'
 import { ApplicationCommandType, ContextMenuCommandBuilder, EmbedBuilder } from 'discord.js'
 
 import { RateLimiter } from 'discord.js-rate-limiter'
-import { DateTime } from 'luxon'
 import { send_message } from '../../utils'
-import { CommandDeferType } from '../index.js'
+import { CommandDeferType } from '../index'
 
 const metadata = new ContextMenuCommandBuilder()
   .setName('date_sent')
@@ -20,7 +19,7 @@ export default class ViewDateSent implements Command {
   metadata = metadata
 
   public async execute(intr: MessageContextMenuCommandInteraction): Promise<void> {
-    const date = DateTime.fromJSDate(intr.targetMessage.createdAt).toLocaleString(DateTime.DATE_HUGE)
+    const date = new Date(intr.targetMessage.createdTimestamp).toLocaleString('en-SG')
     const embed = new EmbedBuilder({ description: `This message was sent on ${date}` })
     await send_message(intr, embed)
   }

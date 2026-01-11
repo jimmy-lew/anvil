@@ -1,9 +1,9 @@
 import type { Channel, User } from 'discord.js'
-import type { Command } from './command.js'
+import type { Command } from './command'
 import { GuildChannel, ThreadChannel } from 'discord.js'
 import { load_structures } from '../utils'
 
-export * from './command.js'
+export * from './command'
 
 const command_structs = import.meta.glob('./**/*.ts', { import: 'default' })
 

@@ -1,21 +1,18 @@
-import type { EventHandler } from './events/event_handler'
+import type { EventHandler } from './events'
 
+import { Anvil } from './bot'
 import { CommandStore } from './commands'
-
-import { config } from './config.js'
+import { config } from './config'
 import { logger } from './logger'
-import { Anvil } from './models/bot'
 import { load_structures } from './utils'
+
+process.loadEnvFile()
 
 const event_structs = import.meta.glob('./events/**/*.ts', { import: 'default' })
 const event_predicate = (_: unknown): _ is EventHandler => true
 
 async function start(): Promise<void> {
   const _ = await CommandStore.get_instance() // Initialize at top level in order for compiler macro to trigger
-  // const buttons: Button[] = []
-  // const reactions: Reaction[] = []
-  // const triggers: Trigger[] = []
-  // const jobs: Job[] = []
   const events = await load_structures(event_structs, event_predicate, ['event_handler.ts'])
 
   const anvil = new Anvil(config.client, events)

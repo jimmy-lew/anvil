@@ -1,11 +1,11 @@
 /* eslint-disable ts/ban-ts-comment */
 import type { RateLimitData } from 'discord.js'
-import type { ClientConfig } from '../config'
-import type { EventHandler } from '../events'
+import type { ClientConfig } from './config'
+import type { EventHandler } from './events'
 
 import { Client, Events, Options, Partials, RESTEvents } from 'discord.js'
-import { config } from '../config'
-import { logger } from '../logger'
+import { config } from './config'
+import { logger } from './logger'
 
 export class Anvil extends Client {
   constructor(
