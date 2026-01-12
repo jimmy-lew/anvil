@@ -2,7 +2,7 @@ import { logger } from '../logger'
 
 export type StructurePredicate<T> = (structure: unknown) => structure is T
 
-async function load_struct<T>(
+async function load_struct<T extends ObjectConstructor>(
   path: string,
   import_func: () => Promise<T>,
   predicate: StructurePredicate<T>,
@@ -14,11 +14,10 @@ async function load_struct<T>(
 
   logger.debug(`Importing ${path}...`)
   try {
-    const struct = await import_func()
+    const struct = await import_func() as T
     if (struct === undefined)
       throw new Error('No member exported')
-    // @ts-expect-error
-    logger.debug(`Imported ${struct.name} successfully`) 
+    logger.debug(`Imported ${struct.name} successfully`)
 
     return predicate(struct) ? struct : null
   }
@@ -35,7 +34,7 @@ async function load_struct<T>(
 }
 
 export async function load_structures<T>(
-  structs: Record<string, () => Promise<unknown>>,
+  structs: Record<string, () => Promise<ObjectConstructor>>,
   pred: StructurePredicate<T>,
   ignore_list = [],
 ): Promise<T[]> {
