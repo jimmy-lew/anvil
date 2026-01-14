@@ -21,7 +21,7 @@
     "build": "tsdown",
     "build:docker": "DOCKER_BUILDKIT=1 docker build -t jvnus/anvil:latest .",
     "cli": "node dist/cli.mjs",
-    "start": "nr build && node dist/start.mjs",
+    "start": "nr build && node --env-file=.env dist/start.mjs",
     "stop:docker": "docker stop anvil && docker rm anvil",
     "start:docker": "docker run --env-file .env -d -p 3333:3333 --name anvil jvnus/anvil:latest",
     "test": "vitest run",
