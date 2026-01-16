@@ -2,7 +2,7 @@ import type { Message } from 'discord.js'
 import type { EventRecord } from './index'
 import { Events } from 'discord.js'
 
-import { parse_message_object } from '../utils'
+import { parseMsg } from '../utils'
 import { EventHandler } from './index'
 
 // Highly dependent on cache
@@ -15,7 +15,7 @@ export default class MessageHandler extends EventHandler {
     if (cur.system || !cur.author || is_self)
       return
 
-    const parsed_msg = await parse_message_object(cur)
+    const parsed_msg = await parseMsg(cur)
     event_record.meta = parsed_msg
   }
 }

@@ -3,7 +3,7 @@ import type { ChatInputCommandInteraction, PermissionsString } from 'discord.js'
 import type { Command } from '../index'
 import { SlashCommandBuilder } from 'discord.js'
 import { logger } from '../../logger'
-import { send_message } from '../../utils'
+import { sendMessage } from '../../utils'
 import { CommandDeferType } from '../index'
 
 const metadata = new SlashCommandBuilder()
@@ -33,6 +33,6 @@ export default class GenerateLogCommand implements Command {
   public async execute(intr: ChatInputCommandInteraction): Promise<void> {
     const args = intr.options.getString('option').toLowerCase()
     logger[args](`This is a mock ${args.toUpperCase()} call`)
-    await send_message(intr, `This is a mock ${args.toUpperCase()} call`)
+    await sendMessage(intr, `This is a mock ${args.toUpperCase()} call`)
   }
 }

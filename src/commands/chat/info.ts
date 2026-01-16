@@ -2,7 +2,7 @@ import type { ChatInputCommandInteraction, PermissionsString } from 'discord.js'
 
 import type { Command } from '../index'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { send_message } from '../../utils'
+import { sendMessage } from '../../utils'
 import { CommandDeferType } from '../index'
 
 enum InfoOption {
@@ -70,6 +70,6 @@ export default class InfoCommand implements Command {
       // default: { }
     }
 
-    await send_message(intr, embed)
+    await sendMessage(intr, embed)
   }
 }

@@ -2,7 +2,7 @@ import { logger } from '../logger'
 
 export type StructurePredicate<T> = (structure: unknown) => structure is T
 
-async function load_struct<T extends ObjectConstructor>(
+async function loadStruct<T extends ObjectConstructor>(
   path: string,
   import_func: () => Promise<T>,
   predicate: StructurePredicate<T>,
@@ -33,13 +33,13 @@ async function load_struct<T extends ObjectConstructor>(
   return null
 }
 
-export async function load_structures<T>(
+export async function loadStructures<T>(
   structs: Record<string, () => Promise<ObjectConstructor>>,
   pred: StructurePredicate<T>,
   ignore_list = [],
 ): Promise<T[]> {
   const structures = (await Promise.all(Object.entries(structs).map(
-    (val) => load_struct(...val, pred, ignore_list)
+    (val) => loadStruct(...val, pred, ignore_list)
   ))).filter(val => val).map(val => new val()) as T[]
   return structures
 }

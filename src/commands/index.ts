@@ -1,7 +1,7 @@
 import type { Channel, User } from 'discord.js'
 import type { Command } from './command'
 import { GuildChannel, ThreadChannel } from 'discord.js'
-import { load_structures } from '../utils'
+import { loadStructures } from '../utils'
 
 export * from './command'
 
@@ -17,7 +17,7 @@ export class CommandStore {
 
   public static async get_instance(): Promise<CommandStore> {
     if (CommandStore.instance == null) {
-      const commands = await load_structures(command_structs, command_predicate, ['args.ts', 'command.ts', 'metadata.ts'])
+      const commands = await loadStructures(command_structs, command_predicate, ['args.ts', 'command.ts', 'metadata.ts'])
       CommandStore.instance = new CommandStore(commands)
     }
 

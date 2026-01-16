@@ -1,7 +1,7 @@
 import type { Channel } from 'discord.js'
 import { DMChannel, GuildChannel, PermissionFlagsBits, ThreadChannel } from 'discord.js'
 
-export const can_send = (channel: Channel, embedLinks: boolean = false) => {
+export const canSend = (channel: Channel, embedLinks: boolean = false) => {
   if (channel instanceof DMChannel) return true
   if (!(channel instanceof GuildChannel) && !(channel instanceof ThreadChannel)) return false
   const channel_perms = channel.permissionsFor(channel.client.user)
