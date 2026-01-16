@@ -1,3 +1,3 @@
-import { CommandRegistry } from './cmd_registry'
+import { CommandRegistry } from './cmdRegistry'
 
 export { CommandRegistry }
