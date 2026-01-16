@@ -5,17 +5,17 @@ import { StringDecoder } from 'node:string_decoder'
 const NEWLINE = 10
 const CARRIAGE_RETURN = 13
 
-export class Stream extends Writable {
-  decoder = new StringDecoder('utf-8')
-  buffer: Nullable<Buffer> = null
-  streams: Writable[]
+export class LogStream extends Writable {
+  private decoder = new StringDecoder('utf-8')
+  private buffer: Nullable<Buffer> = null
+  private streams: Writable[]
 
   constructor(...streams: any[]) {
     super()
     this.streams = streams.filter(this.validate)
   }
 
-  async _write(chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback): Promise<void> {
+  async _write(chunk: Buffer, _encoding: BufferEncoding, callback: TransformCallback): Promise<void> {
     let data = chunk
     if (this.buffer) {
       data = Buffer.concat([this.buffer, chunk])
@@ -23,7 +23,7 @@ export class Stream extends Writable {
     }
     let start = 0
     while (true) {
-      const [isEnd, index] = await this.processChunk(data, start)
+      const [isEnd, index] = await this._processChunk(data, start)
       if (isEnd)
         break
       start = index + 1
@@ -40,16 +40,17 @@ export class Stream extends Writable {
     callback()
   }
 
-  clean(error: Error | null, callback: (error?: Error | null) => void): void {
+  _destroy(error: Nullable<Error>, callback: (error?: Error) => void): void {
     let expected = 0
     for (const stream of this.streams) {
       expected++
       stream.on('close', () => --expected === 0 && callback(error))
       stream.end()
     }
+    callback()
   }
 
-  async processChunk(data: Buffer, start: number): Promise<[boolean, number]> {
+  async _processChunk(data: Buffer, start: number): Promise<[boolean, number]> {
     const index = data.indexOf(NEWLINE, start)
     if (index === -1) {
       this.buffer = data.subarray(start)
@@ -57,7 +58,6 @@ export class Stream extends Writable {
     }
     const end = (index > start && data[index - 1] === CARRIAGE_RETURN) ? index - 1 : index
     const line = this.decoder.write(data.subarray(start, end))
-    // TODO: Handle backpressure
     this.streams.map(s => s.write(`${line}\n`))
     return [false, index]
   }
