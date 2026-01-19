@@ -36,11 +36,17 @@ export abstract class EventHandler {
         name: err.name,
         message: err.message,
         code: err.code,
+        stack: err.stack || '',
       }
     }
     finally {
       event.duration_ms = Date.now() - start
-      logger.trace(event)
+      if (event.error) {
+        logger.error(event)
+      }
+      else {
+        logger.trace(event)
+      }
     }
   }
 }
