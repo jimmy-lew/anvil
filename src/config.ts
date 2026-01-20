@@ -1,5 +1,4 @@
 import type { CacheWithLimitsOptions, GatewayIntentsString, Partials } from 'discord.js'
-import type { SSETransportOptions } from 'pino-sse'
 
 import { readFileSync } from 'node:fs'
 import { parse } from 'yaml'
@@ -14,7 +13,6 @@ export interface ClientConfig {
 
 export interface LoggingConfig {
   webhookURL: string
-  sse: SSETransportOptions
 }
 
 export interface Config {
