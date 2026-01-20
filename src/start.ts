@@ -21,6 +21,12 @@ process.on('unhandledRejection', (reason, _promise) => {
   logger.error(reason, 'An unhandled promise rejection occurred.')
 })
 
+process.on('SIGINT', async () => {
+  logger.info('Shutting down...')
+  await new Promise(resolve => setTimeout(resolve, 500)) // Give cleanup time
+  process.exit(0)
+})
+
 start().catch((error) => {
   logger.error(error, 'An unspecified error occurred.')
 })
