@@ -24,9 +24,8 @@ export class LineBuffer {
       const line = this.buffer.subarray(0, end);
       this.buffer = this.buffer.subarray(index + 1);
 
-      if (line.length > 0) {
-        onLine(line);
-      }
+      if (line.length <= 0) continue
+      onLine(line);
     }
   }
 
@@ -34,10 +33,10 @@ export class LineBuffer {
    * Process any remaining buffered data (called on stream end)
    */
   flush(onLine: (line: Buffer) => void): void {
-    if (this.buffer.length > 0) {
-      onLine(this.buffer);
-      this.buffer = Buffer.alloc(0);
-    }
+    if (this.buffer.length <= 0)
+      return
+    onLine(this.buffer);
+    this.buffer = Buffer.alloc(0);
   }
 
   /**
