@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Socket } from 'node:net'
 import { LineBuffer } from './utils'
 
@@ -13,11 +14,10 @@ export class ServerSocket extends Socket {
 
   constructor(port: number = 9000, host: string = '127.0.0.1') {
     super()
-    this.port = port ?? process.env.DASHBOARD_PORT ?? 9000
+    this.port = port ?? 9000
     this.host = host ?? process.env.DASHBOARD_HOST ?? '127.0.0.1'
     this.setupListeners()
     this.connect(port, host)
-    // console.log('Socket created', new Error().stack)
   }
 
   private setupListeners() {
@@ -34,7 +34,7 @@ export class ServerSocket extends Socket {
             }
           })
         }
-        catch (error) {
+        catch {
           // Not valid JSON - silently ignore
         }
       })

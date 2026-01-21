@@ -1,4 +1,4 @@
-import { logger } from '../logger'
+import { logger } from '@/logger'
 
 export type StructurePredicate<T> = (structure: unknown) => structure is T
 
@@ -11,14 +11,10 @@ async function loadStruct<T extends ObjectConstructor>(
   const [name] = path.split('/').slice(-1)
   if (['index.ts', ...ignore_list].includes(name))
     return null
-
-  logger.debug(`Importing ${path}...`)
   try {
     const struct = await import_func() as T
     if (struct === undefined)
       throw new Error('No member exported')
-    logger.debug(`Imported ${struct.name} successfully`)
-
     return predicate(struct) ? struct : null
   }
   catch (error) {

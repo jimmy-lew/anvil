@@ -1,7 +1,6 @@
-import { socket } from '../socket'
-import { LogStream } from './logStream'
-
-import { FileTransport, TcpTransport } from './transports'
+import { LogStream } from '@/logger/logStream'
+import { FileTransport, TcpTransport } from '@/logger/transports'
+import { socket } from '@/socket'
 
 const _FILE_OPT = { file: 'logs/log.jsonl', size: 10 * 1024 * 1024, mkdir: true }
 const _SSE_OPT = { route: '/', port: 3333, cors: { origin: '*' } }
@@ -15,7 +14,7 @@ export default async function (..._args: any[]) {
   const streams: any[] = [
     file,
     tcp,
-    // isDev ? process.stdout : null,
+    isDev ? process.stdout : null,
   ]
   const stream = new LogStream(...streams)
   return stream

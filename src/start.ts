@@ -1,10 +1,10 @@
 import type { EventHandler } from './events'
 
-import { Anvil } from './bot'
-import { CommandStore } from './commands'
-import { config } from './config'
-import { logger } from './logger'
-import { loadStructures } from './utils'
+import { Anvil } from '@/bot'
+import { CommandStore } from '@/commands'
+import { config } from '@/config'
+import { logger } from '@/logger'
+import { loadStructures } from '@/utils'
 
 const event_structs = import.meta.glob('./events/**/*.ts', { import: 'default' }) as Record<string, () => Promise<ObjectConstructor>>
 const event_predicate = (_: unknown): _ is EventHandler => true

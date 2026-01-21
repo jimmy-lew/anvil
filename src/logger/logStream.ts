@@ -1,7 +1,6 @@
 import type { TransformCallback } from 'node:stream'
 import { Writable } from 'node:stream'
-import { LineBuffer } from '../utils'
-// import { StringDecoder } from 'node:string_decoder'
+import { LineBuffer } from '@/utils'
 
 export class LogStream extends Writable {
   private lineBuffer = new LineBuffer()

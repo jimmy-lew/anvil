@@ -2,7 +2,7 @@ import type { Logger } from 'pino'
 import { nanoid } from 'nanoid'
 import { pino, symbols } from 'pino'
 
-import { stream } from './stream'
+import { stream } from '@/logger/stream'
 
 const { asJsonSym } = symbols
 const PINO_MOD_UNIX = 'node_modules/pino'

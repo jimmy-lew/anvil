@@ -5,6 +5,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "rootDir": "./src",
+    "paths": {
+      "@/*": ["./src/*"],
+    },
     "module": "esnext",
     "moduleResolution": "bundler",
     "types": ["vite/client"],
@@ -14,7 +17,14 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
-  "exclude": ["dist", "node_modules", "tests", "vitest.config.ts", "tsdown.config.ts", "**.bak**"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "tests",
+    "vitest.config.ts",
+    "tsdown.config.ts",
+    "**.bak**",
+  ],
 }

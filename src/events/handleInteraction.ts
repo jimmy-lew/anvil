@@ -1,12 +1,12 @@
 import type { CommandInteraction } from 'discord.js'
-import type { Command } from '../commands'
-import type { EventRecord } from './index'
+import type { Command } from '@/commands'
+import type { EventRecord } from '@/events'
 
 import { AutocompleteInteraction, ChatInputCommandInteraction, Events, MessageFlags } from 'discord.js'
 
 import { RateLimiter } from 'discord.js-rate-limiter'
-import { CommandDeferType, CommandStore } from '../commands'
-import { EventHandler } from './index'
+import { CommandDeferType, CommandStore } from '@/commands'
+import { EventHandler } from '@/events'
 
 export default class CommandHandler extends EventHandler {
   event_name = [Events.InteractionCreate]

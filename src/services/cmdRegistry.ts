@@ -5,8 +5,8 @@ import type {
 } from 'discord.js'
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord.js'
-import { CommandStore } from '../commands'
-import { config } from '../config'
+import { CommandStore } from '@/commands'
+import { config } from '@/config'
 
 export class CommandRegistry {
   rest: REST = new REST({ version: '10' }).setToken(config.client.token)

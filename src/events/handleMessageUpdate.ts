@@ -1,13 +1,13 @@
 import type { Message } from 'discord.js'
-import type { EventRecord } from './index'
+import type { EventRecord } from '@/events'
 import { Events } from 'discord.js'
 
-import { parseMsg } from '../utils'
-import { EventHandler } from './index'
+import { EventHandler } from '@/events'
+import { parseMsg } from '@/utils'
 
 // Highly dependent on cache
 // TODO: More robust caching strategy
-export default class MessageHandler extends EventHandler {
+export default class UpdateMessageHandler extends EventHandler {
   event_name = [Events.MessageUpdate]
 
   public async process(event: Events, event_record: EventRecord, prev: Message, cur: Message): Promise<void> {

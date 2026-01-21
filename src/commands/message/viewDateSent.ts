@@ -1,10 +1,10 @@
 import type { MessageContextMenuCommandInteraction, PermissionsString } from 'discord.js'
-import type { Command } from '../index'
+import type { Command } from '@/commands'
 import { ApplicationCommandType, ContextMenuCommandBuilder, EmbedBuilder } from 'discord.js'
 
 import { RateLimiter } from 'discord.js-rate-limiter'
-import { sendMessage } from '../../utils'
-import { CommandDeferType } from '../index'
+import { CommandDeferType } from '@/commands'
+import { sendMessage } from '@/utils'
 
 const metadata = new ContextMenuCommandBuilder()
   .setName('date_sent')

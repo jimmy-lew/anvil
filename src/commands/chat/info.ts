@@ -1,9 +1,9 @@
 import type { ChatInputCommandInteraction, PermissionsString } from 'discord.js'
 
-import type { Command } from '../index'
+import type { Command } from '@/commands'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { sendMessage } from '../../utils'
-import { CommandDeferType } from '../index'
+import { CommandDeferType } from '@/commands'
+import { sendMessage } from '@/utils'
 
 enum InfoOption {
   ABOUT = 'ABOUT',

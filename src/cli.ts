@@ -1,6 +1,6 @@
 import { confirm, isCancel, outro, select, tasks } from '@clack/prompts'
 
-import { CommandRegistry } from './services'
+import { CommandRegistry } from '@/services'
 
 async function main() {
   const option = await select({

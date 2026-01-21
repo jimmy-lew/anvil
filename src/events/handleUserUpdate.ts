@@ -1,8 +1,8 @@
 import type { PartialUser, User } from 'discord.js'
-import type { EventRecord } from './index'
+import type { EventRecord } from '@/events'
 import { Events } from 'discord.js'
 
-import { EventHandler } from './index'
+import { EventHandler } from '@/events'
 
 export default class UserUpdateHandler extends EventHandler {
   event_name = [Events.UserUpdate]

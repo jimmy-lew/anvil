@@ -1,7 +1,7 @@
 import type { Channel, User } from 'discord.js'
 import type { Command } from './command'
 import { GuildChannel, ThreadChannel } from 'discord.js'
-import { loadStructures } from '../utils'
+import { loadStructures } from '@/utils'
 
 export * from './command'
 

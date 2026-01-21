@@ -1,10 +1,10 @@
 import type { Message } from 'discord.js'
-import type { EventRecord } from './index'
+import type { EventRecord } from '@/events'
 import { Events, MessageType } from 'discord.js'
 
-import { logger } from '../logger'
-import { canSend, parseMsg, sendMessage } from '../utils'
-import { EventHandler } from './index.js'
+import { EventHandler } from '@/events'
+import { logger } from '@/logger'
+import { canSend, parseMsg, sendMessage } from '@/utils'
 
 async function handleUserJoin(msg: Message) {
   const member = msg.member
@@ -21,7 +21,7 @@ async function handleUserJoin(msg: Message) {
   )
 }
 
-export default class MessageHandler extends EventHandler {
+export default class CreateDeleteMessageHandler extends EventHandler {
   event_name = [Events.MessageCreate, Events.MessageDelete]
 
   public async process(event: Events, event_record: EventRecord, msg: Message): Promise<void> {
@@ -36,5 +36,8 @@ export default class MessageHandler extends EventHandler {
       return
     const parsed_msg = await parseMsg(msg)
     event_record.meta = parsed_msg
+    if (process.env.NODE_ENV !== 'dev')
+      return
+    event_record.meta.raw_msg = msg
   }
 }
