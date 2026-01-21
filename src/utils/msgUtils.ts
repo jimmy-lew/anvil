@@ -6,6 +6,8 @@ import {
   PartialMessage,
   TextBasedChannel,
   User,
+  Attachment,
+  Collection,
 } from 'discord.js'
 import {
   RESTJSONErrorCodes as DiscordApiErrors,
@@ -70,12 +72,20 @@ const _parseMentions = (mentions: MessageMentions) => {
   return 'NULL'
 }
 
+const _parseAttachments = (attachments: Collection<string, Attachment>) => {
+  if (!attachments) return 'NULL'
+  if (attachments.size > 0) return attachments.map(a => a.url).join(', ')
+  return 'NULL'
+}
+
 export const parseMsg = async (raw: Message | PartialMessage) => {
   let msg = raw
   let mentions = ''
+  let attachments = ''
   try {
     msg = raw.partial ? (await raw.fetch()) : raw as Message
     mentions = _parseMentions(msg.mentions)
+    attachments = _parseAttachments(msg.attachments)
   }
   catch (err){ }
   return {
@@ -85,6 +95,7 @@ export const parseMsg = async (raw: Message | PartialMessage) => {
     username: msg.author?.username,
     content: msg.content,
     mentions,
+    attachments,
     created: msg.createdTimestamp,
     edited: msg.editedTimestamp ?? 0
   }
