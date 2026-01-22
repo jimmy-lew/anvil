@@ -8,6 +8,11 @@
     "paths": {
       "@/*": ["./src/*"],
     },
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+      },
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "types": ["vite/client"],
