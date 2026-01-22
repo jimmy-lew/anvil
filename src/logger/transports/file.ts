@@ -1,6 +1,7 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { Writable } from 'node:stream'
+import SonicBoom from 'sonic-boom'
 
 interface Options {
   filename: string
@@ -12,7 +13,7 @@ export class FileTransport extends Writable {
   private filename: string
   private maxSize: number
   private currentSize: number = 0
-  private currentStream?: fs.WriteStream
+  private stream?: SonicBoom
 
   constructor(options?: Options) {
     super()
@@ -23,6 +24,12 @@ export class FileTransport extends Writable {
   }
 
   private _initSync(): void {
+    // Ensure directory exists
+    const dir = path.dirname(this.filename)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+
     if (fs.existsSync(this.filename)) {
       const stats = fs.statSync(this.filename)
       this.currentSize = stats.size
@@ -31,29 +38,32 @@ export class FileTransport extends Writable {
   }
 
   private _openStream(): void {
-    this.currentStream = fs.createWriteStream(this.filename, { flags: 'a' })
+    this.stream = new SonicBoom({
+      dest: this.filename,
+      mkdir: true,
+    })
 
     // Bubble up errors from the internal stream
-    this.currentStream.on('error', err => this.emit('error', err))
+    this.stream.on('error', err => this.emit('error', err))
   }
 
   private async rotate(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (!this.currentStream)
+      if (!this.stream)
         return resolve()
 
-      this.currentStream.end(() => {
-        const timestamp = Date.now()
-        const archivedPath = `${this.filename}.${timestamp}`
+      this.stream.flush()
 
-        fs.rename(this.filename, archivedPath, (err) => {
-          if (err)
-            return reject(err)
+      const timestamp = Date.now()
+      const archivedPath = `${this.filename}.${timestamp}`
 
-          this.currentSize = 0
-          this._openStream()
-          resolve()
-        })
+      fs.rename(this.filename, archivedPath, (err) => {
+        if (err)
+          return reject(err)
+
+        this.currentSize = 0
+        this.stream?.reopen()
+        resolve()
       })
     })
   }
@@ -75,25 +85,37 @@ export class FileTransport extends Writable {
   }
 
   private _performWrite(chunk: any, callback: (error?: Error | null) => void): void {
-    if (!this.currentStream) {
+    if (!this.stream) {
       return callback(new Error('Internal stream not initialized'))
     }
 
     const len = Buffer.byteLength(chunk)
-    this.currentStream.write(chunk, (err) => {
-      if (!err) {
-        this.currentSize += len
-      }
-      callback(err)
-    })
+    const written = this.stream.write(chunk)
+
+    this.currentSize += len
+
+    if (written) {
+      callback()
+    }
+    else {
+      this.stream.once('drain', callback)
+    }
   }
 
   _final(callback: (error?: Error | null) => void): void {
-    if (this.currentStream) {
-      this.currentStream.end(callback)
+    if (this.stream) {
+      this.stream.end()
+      this.stream.once('finish', callback)
     }
     else {
       callback()
     }
+  }
+
+  _destroy(error: Error | null, callback: (error?: Error | null) => void): void {
+    if (this.stream) {
+      this.stream.destroy()
+    }
+    callback(error)
   }
 }
