@@ -1,9 +1,9 @@
 import type { Message } from 'discord.js'
 import type { EventRecord } from '@/events'
-import { Events, MessageType } from 'discord.js'
+import { logger } from '@anvil/logger'
 
+import { Events, MessageType } from 'discord.js'
 import { EventHandler } from '@/events'
-import { logger } from '@/logger'
 import { canSend, parseMsg, sendMessage } from '@/utils'
 
 async function handleUserJoin(msg: Message) {

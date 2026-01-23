@@ -1,5 +1,5 @@
 import type { Events } from 'discord.js'
-import { logger } from '@/logger'
+import { logger } from '@anvil/logger'
 
 interface EventError {
   name: string
