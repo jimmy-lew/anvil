@@ -1,0 +1,169 @@
+.theme-mono {
+  --font-sans: var(--font-mono);
+  --primary: var(--color-stone-600);
+  --primary-foreground: var(--color-stone-50);
+  --chart-1: var(--color-stone-300);
+  --chart-2: var(--color-stone-500);
+  --chart-3: var(--color-stone-600);
+  --chart-4: var(--color-stone-700);
+  --chart-5: var(--color-stone-800);
+  --sidebar-primary: var(--color-stone-600);
+  --sidebar-primary-foreground: var(--color-stone-50);
+  --sidebar-ring: var(--color-stone-400);
+  --vis-primary-color: var(--primary);
+
+  @variant dark {
+    --primary: var(--color-stone-500);
+    --primary-foreground: var(--color-stone-50);
+    --sidebar-primary: var(--color-stone-500);
+    --sidebar-primary-foreground: var(--color-stone-50);
+    --sidebar-ring: var(--color-stone-900);
+  }
+
+  @media (min-width: 1024px) {
+    --font-sans: var(--font-mono);
+    --radius: 0.45em;
+    --text-lg: 1rem;
+    --text-xl: 1.1rem;
+    --text-2xl: 1.2rem;
+    --text-3xl: 1.3rem;
+    --text-4xl: 1.4rem;
+    --text-5xl: 1.5rem;
+    --text-6xl: 1.6rem;
+    --text-7xl: 1.7rem;
+    --text-8xl: 1.8rem;
+    --text-base: 0.85rem;
+    --text-sm: 0.8rem;
+    --spacing: 0.222222rem;
+  }
+
+  .rounded-xs,
+  .rounded-sm,
+  .rounded-md,
+  .rounded-lg,
+  .rounded-xl {
+    border-radius: 0;
+  }
+
+  .shadow-xs,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl {
+    box-shadow: none;
+  }
+
+  [data-slot="toggle-group"],
+  [data-slot="toggle-group-item"],
+  [data-slot="checkbox"],
+  [data-slot="radio"],
+  [data-slot="switch"],
+  [data-slot="switch-thumb"] {
+    @apply !rounded-none !shadow-none;
+  }
+}
+
+.theme-scaled {
+  @media (min-width: 1024px) {
+    --radius: 0.45em;
+    --text-lg: 1rem;
+    --text-xl: 1.1rem;
+    --text-2xl: 1.2rem;
+    --text-3xl: 1.3rem;
+    --text-4xl: 1.4rem;
+    --text-5xl: 1.5rem;
+    --text-6xl: 1.6rem;
+    --text-7xl: 1.7rem;
+    --text-8xl: 1.8rem;
+    --text-base: 0.85rem;
+    --text-sm: 0.8rem;
+    --spacing: 0.2rem;
+  }
+
+  [data-slot="select-trigger"],
+  [data-slot="toggle-group-item"] {
+    --spacing: 0.2rem;
+  }
+
+  [data-slot="card"] {
+    border-radius: var(--radius);
+    padding-block: calc(var(--spacing) * 4);
+    gap: calc(var(--spacing) * 2);
+  }
+
+  [data-slot="card"].pb-0 {
+    padding-bottom: 0;
+  }
+}
+
+.theme-rounded-none {
+  --radius: 0;
+}
+
+.theme-rounded-small {
+  --radius: 0.4rem;
+}
+
+.theme-rounded-medium {
+  --radius: 0.65rem;
+}
+
+.theme-rounded-large {
+  --radius: 1rem;
+}
+
+.theme-rounded-full {
+  --radius: 1.2rem;
+}
+
+.theme-inter {
+  --font-sans: var(--font-inter);
+}
+
+.theme-noto-sans {
+  --font-sans: var(--font-noto-sans);
+}
+
+.theme-nunito-sans {
+  --font-sans: var(--font-nunito-sans);
+}
+
+.theme-figtree {
+  --font-sans: var(--font-figtree);
+}
+
+.color-red {
+  --primary: var(--color-red-600);
+  --primary-foreground: var(--color-red-50);
+  --ring: var(--color-red-400);
+  --vis-primary-color: var(--primary);
+  --chart-1: var(--color-red-300);
+  --chart-2: var(--color-red-500);
+  --chart-3: var(--color-red-600);
+  --chart-4: var(--color-red-700);
+  --chart-5: var(--color-red-800);
+  --sidebar-primary: var(--color-red-600);
+  --sidebar-primary-foreground: var(--color-red-50);
+  --sidebar-ring: var(--color-red-400);
+
+  @variant dark {
+    --primary: var(--color-red-500);
+    --primary-foreground: var(--color-red-50);
+    --ring: var(--color-red-900);
+    --sidebar-primary: var(--color-red-500);
+    --sidebar-primary-foreground: var(--color-red-50);
+    --sidebar-ring: var(--color-red-900);
+  }
+}
+
+@layer base {
+  .\[\&_\.tick_line\]\:\!stroke-border\/50 {
+    & .tick line {
+      stroke: oklch(0.34 0 0) !important;
+      @variant dark {
+        stroke: oklch(0.24 0 0) !important
+      }
+    }
+
+  } 
+}
