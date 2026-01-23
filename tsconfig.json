@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/bot"
+    },
+    {
+      "path": "./apps/dashboard"
+    },
+    {
+      "path": "./packages/logger"
+    }
+  ]
+}

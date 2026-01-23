@@ -34,7 +34,6 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "format": "eslint --fix .",
     "release": "release-it",
     "db:auth-generate": "nlx @better-auth/cli generate -y --config ../shared/lib/auth.ts -c ./db/",
     "db:generate": "nr db:auth-generate && drizzle-kit generate --config ./drizzle.config.ts",
@@ -66,7 +65,6 @@
     "@libsql/linux-x64-musl": "^0.5.22"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.19.0",
     "@nuxt/eslint": "^1.9.0",
     "@nuxt/fonts": "0.11.4",
     "@nuxt/icon": "^1.15.0",
@@ -81,8 +79,6 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "drizzle-kit": "^0.31.8",
-    "eslint": "^9.37.0",
-    "eslint-plugin-format": "^1.0.2",
     "lucide-vue-next": "^0.482.0",
     "nuxt": "^4.1.3",
     "release-it": "^19.0.5",
