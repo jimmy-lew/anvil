@@ -17,5 +17,5 @@ export default base
     'ts/no-unnecessary-type-constraint',
   )
   .append({
-    ignores: ['tests', 'src/utils'],
+    ignores: ['tests'],
   })

@@ -1,15 +1,15 @@
-import {
+import type {
+  Attachment,
   BaseMessageOptions,
-  CommandInteraction,
+  Collection,
   Message,
   MessageMentions,
   PartialMessage,
   TextBasedChannel,
   User,
-  Attachment,
-  Collection,
 } from 'discord.js'
 import {
+  CommandInteraction,
   RESTJSONErrorCodes as DiscordApiErrors,
   EmbedBuilder,
   MessageFlags,
@@ -28,10 +28,12 @@ const IGNORED_ERRORS = [
   DiscordApiErrors.MaximumActiveThreads,
 ]
 
-const _parseContent = (content: string | EmbedBuilder | BaseMessageOptions): BaseMessageOptions => {
+function _parseContent(content: string | EmbedBuilder | BaseMessageOptions): BaseMessageOptions {
   let opts: BaseMessageOptions
-  if (typeof content == 'string') opts = {content}
-  else if (content instanceof EmbedBuilder) opts = {embeds: [content]}
+  if (typeof content == 'string')
+    opts = { content }
+  else if (content instanceof EmbedBuilder)
+    opts = { embeds: [content] }
   else opts = content
   return opts
 }
@@ -40,45 +42,50 @@ export async function sendMessage(
   target: User | TextBasedChannel,
   content: string | EmbedBuilder | BaseMessageOptions,
   delay?: number,
-  hidden?: boolean
+  hidden?: boolean,
 ): Promise<any>
 export async function sendMessage(
   target: CommandInteraction,
   content: string | EmbedBuilder | BaseMessageOptions,
   delay?: number,
-  hidden?: boolean
+  hidden?: boolean,
 ): Promise<any>
 export async function sendMessage(
   target: User | TextBasedChannel | CommandInteraction,
   content: string | EmbedBuilder | BaseMessageOptions,
   delay: number = 0,
-  hidden: boolean = false
+  hidden: boolean = false,
 ): Promise<any> {
-  if (target instanceof PartialGroupDMChannel) return
+  if (target instanceof PartialGroupDMChannel)
+    return
   const opts = _parseContent(content)
   if (target instanceof CommandInteraction) {
     const is_deferred = target.deferred || target.replied
     const res = is_deferred
-      ? await target.followUp({...opts, flags: hidden ? MessageFlags.Ephemeral : undefined})
-      : await target.reply({...opts, flags: hidden ? MessageFlags.Ephemeral : undefined})
+      ? await target.followUp({ ...opts, flags: hidden ? MessageFlags.Ephemeral : undefined })
+      : await target.reply({ ...opts, flags: hidden ? MessageFlags.Ephemeral : undefined })
     return is_deferred ? res : (await target.fetchReply())
   }
   return setTimeout(async () => await target.send(opts), delay)
 }
 
-const _parseMentions = (mentions: MessageMentions) => {
-  if (!mentions) return 'NULL'
-  if (mentions.everyone) return '@everyone'
+function _parseMentions(mentions: MessageMentions) {
+  if (!mentions)
+    return 'NULL'
+  if (mentions.everyone)
+    return '@everyone'
   return 'NULL'
 }
 
-const _parseAttachments = (attachments: Collection<string, Attachment>) => {
-  if (!attachments) return 'NULL'
-  if (attachments.size > 0) return attachments.map(a => a.url).join(', ')
+function _parseAttachments(attachments: Collection<string, Attachment>) {
+  if (!attachments)
+    return 'NULL'
+  if (attachments.size > 0)
+    return attachments.map(a => a.url).join(', ')
   return 'NULL'
 }
 
-export const parseMsg = async (raw: Message | PartialMessage) => {
+export async function parseMsg(raw: Message | PartialMessage) {
   let msg = raw
   let mentions = ''
   let attachments = ''
@@ -87,7 +94,7 @@ export const parseMsg = async (raw: Message | PartialMessage) => {
     mentions = _parseMentions(msg.mentions)
     attachments = _parseAttachments(msg.attachments)
   }
-  catch (err){ }
+  catch (err) { }
   return {
     channel: msg.channelId,
     msg_id: msg.id,
@@ -97,6 +104,6 @@ export const parseMsg = async (raw: Message | PartialMessage) => {
     mentions,
     attachments,
     created: msg.createdTimestamp,
-    edited: msg.editedTimestamp ?? 0
+    edited: msg.editedTimestamp ?? 0,
   }
 }

@@ -35,7 +35,7 @@ export async function loadStructures<T>(
   ignore_list = [],
 ): Promise<T[]> {
   const structures = (await Promise.all(Object.entries(structs).map(
-    (val) => loadStruct(...val, pred, ignore_list)
+    val => loadStruct(...val, pred, ignore_list),
   ))).filter(val => val).map(val => new val()) as T[]
   return structures
 }
