@@ -26,6 +26,15 @@ importers:
 
   apps/bot:
     dependencies:
+      '@anvil/logger':
+        specifier: workspace:^
+        version: link:../../packages/logger
+      '@anvil/socket':
+        specifier: workspace:^
+        version: link:../../packages/socket
+      '@anvil/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@clack/prompts':
         specifier: ^0.11.0
         version: 0.11.0
@@ -250,13 +259,41 @@ importers:
         version: 0.5.22
 
   packages/logger:
+    dependencies:
+      atomic-sleep:
+        specifier: ^1.0.0
+        version: 1.0.0
+      nanoid:
+        specifier: ^5.1.6
+        version: 5.1.6
+      on-exit-leak-free:
+        specifier: ^2.1.2
+        version: 2.1.2
+      sonic-boom:
+        specifier: ^4.2.0
+        version: 4.2.0
+      thread-stream:
+        specifier: ^4.0.0
+        version: 4.0.0
+    devDependencies:
+      '@types/atomic-sleep':
+        specifier: ^1.0.1
+        version: 1.0.1
+      '@types/node':
+        specifier: ^25.0.10
+        version: 25.0.10
+      tsdown:
+        specifier: ^0.18.4
+        version: 0.18.4(synckit@0.11.12)(typescript@5.9.3)
+
+  packages/socket:
     devDependencies:
       '@types/node':
         specifier: ^25.0.10
         version: 25.0.10
 
   packages/utils:
-    dependencies:
+    devDependencies:
       '@types/node':
         specifier: ^25.0.10
         version: 25.0.10
@@ -2745,6 +2782,9 @@ packages:
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
+
+  '@types/atomic-sleep@1.0.1':
+    resolution: {integrity: sha512-fuNhObVprKajGSDVNjF80o1tglelzS6HkqT+SJK1/xDlnP/lCGXHR+Axpw+xeS6KMRIROlXt6W6ZeFbMItgTGQ==}
 
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
@@ -10002,6 +10042,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@types/atomic-sleep@1.0.1': {}
 
   '@types/chai@5.2.3':
     dependencies:

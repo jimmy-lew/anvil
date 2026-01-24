@@ -3,9 +3,9 @@ import type { RateLimitData } from 'discord.js'
 import type { ClientConfig } from '@/config'
 import type { EventHandler } from '@/events'
 
+import { logger } from '@anvil/logger'
 import { Client, Events, Options, Partials, RESTEvents } from 'discord.js'
 import { config } from '@/config'
-import { logger } from '@/logger'
 
 export class Anvil extends Client {
   constructor(

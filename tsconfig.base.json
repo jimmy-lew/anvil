@@ -12,6 +12,8 @@
     "skipLibCheck": true,
     "paths": {
       "@lib/logger": ["./packages/logger/src/index.ts"],
+      "@lib/utils": ["./packages/utils/index.ts"],
+      "@lib/socket": ["./packages/socket/index.ts"],
     },
   },
   "exclude": ["node_modules", "dist"],

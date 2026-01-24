@@ -1,6 +1,8 @@
 import type { TransformCallback } from 'node:stream'
 import { Writable } from 'node:stream'
-import { LineBuffer } from '@/utils'
+import { LineBuffer } from '@lib/utils'
+
+type Nullable<T> = T | null
 
 export class LogStream extends Writable {
   private lineBuffer = new LineBuffer()
@@ -27,7 +29,7 @@ export class LogStream extends Writable {
     callback()
   }
 
-  _destroy(error: Error | null, callback: (error?: Error) => void): void {
+  _destroy(error: Nullable<Error>, callback: (error?: Nullable<Error>) => void): void {
     let expected = 0
     for (const stream of this.streams) {
       expected++

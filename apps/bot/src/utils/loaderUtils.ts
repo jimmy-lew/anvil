@@ -1,4 +1,4 @@
-import { logger } from '@/logger'
+import { logger } from '@anvil/logger'
 
 export type StructurePredicate<T> = (structure: unknown) => structure is T
 

@@ -1,0 +1,32 @@
+{
+  "name": "@anvil/logger",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.19.0",
+  "author": "Jimmy Lew <jvnu@proton.me>",
+  "license": "MIT",
+  "keywords": [],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./worker": "./dist/worker.mjs",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "scripts": {
+    "build": "tsdown",
+    "lint": "eslint --fix ."
+  },
+  "dependencies": {
+    "atomic-sleep": "^1.0.0",
+    "nanoid": "^5.1.6",
+    "on-exit-leak-free": "^2.1.2",
+    "sonic-boom": "^4.2.0",
+    "thread-stream": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/atomic-sleep": "^1.0.1",
+    "@types/node": "^25.0.10",
+    "tsdown": "^0.18.4"
+  },
+  "types": "./dist/index.d.mts"
+}

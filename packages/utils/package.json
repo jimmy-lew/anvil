@@ -1,0 +1,16 @@
+{
+  "name": "@anvil/utils",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.19.0",
+  "author": "Jimmy Lew <jvnu@proton.me>",
+  "license": "MIT",
+  "keywords": [],
+  "main": "./index.ts",
+  "scripts": {
+    "build": "tsdown",
+    "lint": "eslint --fix ."
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10"
+  }
+}

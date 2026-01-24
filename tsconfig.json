@@ -2,13 +2,19 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/bot"
+      "path": "./apps/bot",
     },
     {
-      "path": "./apps/dashboard"
+      "path": "./apps/dashboard",
     },
     {
-      "path": "./packages/logger"
-    }
-  ]
+      "path": "./packages/logger",
+    },
+    {
+      "path": "./packages/utils",
+    },
+    {
+      "path": "./packages/sockets",
+    },
+  ],
 }

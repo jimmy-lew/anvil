@@ -1,9 +1,9 @@
 import type { ChatInputCommandInteraction, PermissionsString } from 'discord.js'
 
 import type { Command } from '@/commands'
+import { logger } from '@anvil/logger'
 import { SlashCommandBuilder } from 'discord.js'
 import { CommandDeferType } from '@/commands'
-import { logger } from '@/logger'
 import { sendMessage } from '@/utils'
 
 const metadata = new SlashCommandBuilder()
