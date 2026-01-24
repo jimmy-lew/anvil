@@ -21,8 +21,14 @@ process.on('unhandledRejection', (reason, _promise) => {
   logger.error(reason, 'An unhandled promise rejection occurred.')
 })
 
+process.stdin.setRawMode(true)
+process.stdin.on('data', (chunk) => {
+  if (chunk[0] === 3)
+    process.emit('SIGINT')
+})
+
 process.on('SIGINT', async () => {
-  logger.info('Shutting down...')
+  logger.info(`Shutting down [pid=${process.pid}]...`)
   await new Promise(resolve => setTimeout(resolve, 500)) // Give cleanup time
   process.exit(0)
 })
