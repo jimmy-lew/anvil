@@ -47,6 +47,7 @@ export class InternalSocket extends Socket {
     this.on('connect', () => {
       this.connected = true
       this.attempts = 0
+      process.stdout.write(`Successfully connected to ${this.host}:${this.port}\n`)
       this.onConnect()
     })
   }
@@ -58,12 +59,12 @@ export class InternalSocket extends Socket {
       this.attempts = 0
     }
     if (this.attempts >= this.maxAttempts) {
-      process.stderr.write(`Failed to reconnect after ${this.maxAttempts} attempts. Giving up.`)
+      process.stderr.write(`Failed to reconnect after ${this.maxAttempts} attempts. Giving up.\n`)
       return
     }
     const delay = this.baseReconnectDelay * 1.5 ** this.attempts
     this.attempts += 1
-    process.stdout.write(`Reconnecting to ${this.host}:${this.port} in ${delay}ms (attempt ${this.attempts}/${this.maxAttempts})`)
+    process.stdout.write(`Reconnecting to ${this.host}:${this.port} in ${delay}ms (attempt ${this.attempts}/${this.maxAttempts})\n`)
     this.reconnectTimeout = setTimeout(() => {
       this.connect(this.port, this.host)
     }, delay)
