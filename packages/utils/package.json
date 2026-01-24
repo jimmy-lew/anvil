@@ -5,7 +5,7 @@
   "author": "Jimmy Lew <jvnu@proton.me>",
   "license": "MIT",
   "keywords": [],
-  "main": "./dist/index.mjs",
+  "main": "./index.ts",
   "scripts": {
     "build": "tsdown",
     "lint": "eslint --fix ."

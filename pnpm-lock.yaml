@@ -29,6 +29,12 @@ importers:
       '@anvil/logger':
         specifier: workspace:^
         version: link:../../packages/logger
+      '@anvil/socket':
+        specifier: workspace:^
+        version: link:../../packages/socket
+      '@anvil/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@clack/prompts':
         specifier: ^0.11.0
         version: 0.11.0
@@ -279,6 +285,12 @@ importers:
       tsdown:
         specifier: ^0.18.4
         version: 0.18.4(synckit@0.11.12)(typescript@5.9.3)
+
+  packages/socket:
+    devDependencies:
+      '@types/node':
+        specifier: ^25.0.10
+        version: 25.0.10
 
   packages/utils:
     devDependencies:

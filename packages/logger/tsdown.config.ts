@@ -10,6 +10,7 @@ export default defineConfig(
       outDir: 'dist',
       minify: true,
       logLevel: 'error',
+      exports: true,
       dts: true,
     },
   ],
