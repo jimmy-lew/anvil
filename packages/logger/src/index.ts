@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid'
 import { Thread } from './thread'
 
+export * from './hooks'
+
 export interface Destination {
   write: (data: any) => void
 }
