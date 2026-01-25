@@ -1,0 +1,16 @@
+[
+  {
+    "name": "bot",
+    "path": "apps/bot",
+    "command": "npm",
+    "args": ["run", "dev"],
+    "workingDir": "apps/bot"
+  },
+  {
+    "name": "dashboard",
+    "path": "apps/dashboard",
+    "command": "bun",
+    "args": ["run", "dev"],
+    "workingDir": "apps/dashboard"
+  }
+]

@@ -1,4 +1,4 @@
-module github.com/jimmy-lew/anvil
+module github.com/jimmy-lew/anvil/packages/cli
 
 go 1.25.5
 
