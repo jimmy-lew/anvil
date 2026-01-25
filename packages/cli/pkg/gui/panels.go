@@ -11,6 +11,10 @@ func (g *Gui) CreateList(title string) *tview.List {
 	list.SetBorder(true).SetTitle(title).SetBorderPadding(0, 0, 1, 1)
 	list.SetBackgroundColor(tcell.ColorDefault)
 	list.SetSelectedBackgroundColor(tcell.ColorBlack)
+	list.SetSelectedTextColor(tcell.ColorWhite)
+	list.SetHighlightFullLine(true)
+
+	list.SetMainTextStyle(theme.AppItemStyle)
 
 	list.SetFocusFunc(func() { list.SetBorderColor(theme.BorderFocusColor) })
 	list.SetBlurFunc(func() { list.SetBorderColor(theme.BorderBlurColor) })

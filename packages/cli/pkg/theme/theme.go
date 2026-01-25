@@ -10,6 +10,7 @@ var (
 	BorderBlurColor  = tcell.ColorGray
 	StatusRunning    = "[green]●"
 	StatusStopped    = "[red]○"
+	AppItemStyle     = tcell.StyleDefault.Background(tcell.ColorDefault).Foreground(tcell.ColorWhite)
 )
 
 func ApplyRoundedBorders() {

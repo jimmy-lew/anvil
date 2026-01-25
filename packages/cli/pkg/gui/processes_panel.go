@@ -24,11 +24,9 @@ func (g *Gui) RefreshProcesses(processes map[string]*process.AppProcess) {
 
 		baseText := fmt.Sprintf(" %s [-][white]%s[-]", icon, name)
 		displayLen := 1 + 1 + len(name)
-		padding := width - displayLen
-		if padding < 0 {
-			padding = 0
-		}
+		padding := max(width-displayLen, 0)
 
-		g.ProcessesList.AddItem(baseText+strings.Repeat(" ", padding), "", 0, nil)
+		displayText := baseText + strings.Repeat(" ", padding)
+		g.ProcessesList.AddItem(displayText, "", 0, nil)
 	}
 }

@@ -7,7 +7,7 @@ import (
 func (app *App) setupHandlers() {
 	app.Gui.ProcessesList.SetChangedFunc(func(index int, mainText, secondaryText string, shortcut rune) {
 		// Logic to update selectedProc based on index
-		app.updateDisplay()
+		app.Update()
 	})
 }
 

@@ -17,7 +17,6 @@ type App struct {
 }
 
 func NewApp() *App {
-	theme.ApplyRoundedBorders()
 	wd, _ := os.Getwd()
 
 	a := &App{
@@ -27,15 +26,18 @@ func NewApp() *App {
 	}
 
 	a.Manager.DetectApps(a.Root)
-	a.initGui()
+	a.setupUI()
 	return a
 }
 
-func (app *App) initGui() {
+func (app *App) setupUI() {
+	theme.ApplyRoundedBorders()
 	app.Gui.ProcessesList = app.Gui.CreateList("Apps")
 	app.Gui.Logs = app.Gui.CreateTextView("Logs", true)
 	app.Gui.Stats = app.Gui.CreateTextView("Stats", false)
 	app.Gui.Info = app.Gui.CreateTextView("Info", true)
+
+	app.Gui.RefreshProcesses(app.Manager.Processes)
 
 	app.Gui.SetupLayout()
 	app.setupHandlers()
@@ -43,12 +45,12 @@ func (app *App) initGui() {
 
 	for name := range app.Manager.Processes {
 		app.SelectedProc = name
-		app.updateDisplay()
+		app.Update()
 		break
 	}
 }
 
-func (app *App) updateDisplay() {
+func (app *App) Update() {
 	proc := app.Manager.Processes[app.SelectedProc]
 	app.Gui.UpdateLogs(proc)
 	app.Gui.UpdateStats(proc)
