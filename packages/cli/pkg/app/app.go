@@ -31,44 +31,44 @@ func NewApp() *App {
 	return a
 }
 
-func (a *App) initGui() {
-	a.Gui.ProcessesList = a.Gui.CreateList("Apps")
-	a.Gui.Logs = a.Gui.CreateTextView("Logs", true)
-	a.Gui.Stats = a.Gui.CreateTextView("Stats", false)
-	a.Gui.Info = a.Gui.CreateTextView("Info", true)
+func (app *App) initGui() {
+	app.Gui.ProcessesList = app.Gui.CreateList("Apps")
+	app.Gui.Logs = app.Gui.CreateTextView("Logs", true)
+	app.Gui.Stats = app.Gui.CreateTextView("Stats", false)
+	app.Gui.Info = app.Gui.CreateTextView("Info", true)
 
-	a.Gui.SetupLayout()
-	a.setupHandlers()
-	a.setupKeybindings()
+	app.Gui.SetupLayout()
+	app.setupHandlers()
+	app.setupKeybindings()
 
-	for name := range a.Manager.Processes {
-		a.SelectedProc = name
-		a.updateDisplay()
+	for name := range app.Manager.Processes {
+		app.SelectedProc = name
+		app.updateDisplay()
 		break
 	}
 }
 
-func (a *App) updateDisplay() {
-	proc := a.Manager.Processes[a.SelectedProc]
-	a.Gui.UpdateLogs(proc)
-	a.Gui.UpdateStats(proc)
-	a.Gui.UpdateInfo(proc)
+func (app *App) updateDisplay() {
+	proc := app.Manager.Processes[app.SelectedProc]
+	app.Gui.UpdateLogs(proc)
+	app.Gui.UpdateStats(proc)
+	app.Gui.UpdateInfo(proc)
 }
 
-func (a *App) Run() error {
-	go a.autoRefresh()
-	return a.Gui.App.Run()
+func (app *App) Run() error {
+	go app.autoRefresh()
+	return app.Gui.App.Run()
 }
 
-func (a *App) Stop() {
-	a.Manager.StopAll()
+func (app *App) Stop() {
+	app.Manager.StopAll()
 }
 
-func (a *App) autoRefresh() {
+func (app *App) autoRefresh() {
 	ticker := time.NewTicker(1 * time.Second)
 	for range ticker.C {
-		a.Gui.App.QueueUpdateDraw(func() {
-			a.Gui.UpdateStats(a.Manager.Processes[a.SelectedProc])
+		app.Gui.App.QueueUpdateDraw(func() {
+			app.Gui.UpdateStats(app.Manager.Processes[app.SelectedProc])
 		})
 	}
 }

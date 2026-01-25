@@ -4,44 +4,47 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-func (a *App) setupHandlers() {
-	a.Gui.ProcessesList.SetChangedFunc(func(index int, mainText, secondaryText string, shortcut rune) {
+func (app *App) setupHandlers() {
+	app.Gui.ProcessesList.SetChangedFunc(func(index int, mainText, secondaryText string, shortcut rune) {
 		// Logic to update selectedProc based on index
-		a.updateDisplay()
+		app.updateDisplay()
 	})
 }
 
-func (a *App) setupKeybindings() {
-	a.Gui.App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+func (app *App) setupKeybindings() {
+	app.Gui.App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
 		case tcell.KeyTab:
-			a.Gui.FocusIndex = (a.Gui.FocusIndex + 1) % len(a.Gui.Focusable)
-			a.Gui.UpdateFocus()
+			app.Gui.FocusIndex = (app.Gui.FocusIndex + 1) % len(app.Gui.Focusable)
+			app.Gui.UpdateFocus()
 			return nil
+		case tcell.KeyCtrlC:
+			app.Stop()
+			app.Gui.App.Stop()
 		}
 
 		switch event.Rune() {
 		case 'q':
-			a.Stop()
-			a.Gui.App.Stop()
+			app.Stop()
+			app.Gui.App.Stop()
 		case 's':
-			a.Manager.StartProcess(a.SelectedProc, a.AddLog)
+			app.Manager.StartProcess(app.SelectedProc, app.AddLog)
 		case 'x':
-			a.Manager.StopProcess(a.SelectedProc)
+			app.Manager.StopProcess(app.SelectedProc)
 		}
 		return event
 	})
 }
 
-func (a *App) AddLog(procName string, msg string) {
-	proc := a.Manager.Processes[procName]
+func (app *App) AddLog(procName string, msg string) {
+	proc := app.Manager.Processes[procName]
 	proc.LogsMutex.Lock()
 	proc.Logs = append(proc.Logs, msg)
 	proc.LogsMutex.Unlock()
 
-	if procName == a.SelectedProc {
-		a.Gui.App.QueueUpdateDraw(func() {
-			a.Gui.UpdateLogs(proc)
+	if procName == app.SelectedProc {
+		app.Gui.App.QueueUpdateDraw(func() {
+			app.Gui.UpdateLogs(proc)
 		})
 	}
 }
