@@ -3,6 +3,14 @@
   <p><em>Forge.</em></p>
 </div>
 
+
+<p align="center">
+  <a href="https://github.com/jimmy-lew/anvil/releases"><img src="https://img.shields.io/github/v/tag/jimmy-lew/anvil?label=version&style=flat-square" alt="Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
+  <a href="https://github.com/jimmy-lew/anvil/commits"><img src="https://img.shields.io/github/commit-activity/m/jimmy-lew/anvil?style=flat-square" alt="Commits"></a>
+</p>
+
+
 <p align="center">
   <img src="" alt="" width="1000" />
 </p>
