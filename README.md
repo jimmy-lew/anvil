@@ -3,15 +3,11 @@
   <p><em>Forge.</em></p>
 </div>
 
+<!--[![version](https://img.shields.io/github/v/tag/jimmy-lew/anvil?&style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/releases)-->
 
-<p align="center">
-
-  <!--[![version](https://img.shields.io/github/v/tag/jimmy-lew/anvil?&style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/releases)-->
-  [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat&colorA=000&colorB=000)](https://www.npmjs.com/package/better-auth)
-  [![activity](https://img.shields.io/github/commit-activity/m/jimmy-lew/anvil?style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/commits)
-  
-</p>
-
+[![version](https://img.shields.io/badge/Anvil%20Discord-000000?logo=discord)](https://github.com/jimmy-lew/anvil/releases)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat&colorA=000&colorB=000)](https://www.npmjs.com/package/better-auth)
+[![activity](https://img.shields.io/github/commit-activity/m/jimmy-lew/anvil?style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/commits)
 
 <p align="center">
   <img src="./banner.png" alt="anvil" />
