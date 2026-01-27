@@ -8,9 +8,11 @@ import (
 var (
 	BorderFocusColor = tcell.Color62
 	BorderBlurColor  = tcell.ColorGray
+	FocusedColor     = tcell.NewRGBColor(60, 64, 72)
 	StatusRunning    = "[green]●"
 	StatusStopped    = "[red]○"
 	AppItemStyle     = tcell.StyleDefault.Background(tcell.ColorDefault).Foreground(tcell.ColorWhite)
+	FocusedStyle     = tcell.StyleDefault.Background(FocusedColor).Bold(true)
 )
 
 func ApplyRoundedBorders() {

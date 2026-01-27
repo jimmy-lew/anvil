@@ -10,8 +10,7 @@ func (g *Gui) CreateList(title string) *tview.List {
 	list := tview.NewList().ShowSecondaryText(false)
 	list.SetBorder(true).SetTitle(title).SetBorderPadding(0, 0, 1, 1)
 	list.SetBackgroundColor(tcell.ColorDefault)
-	list.SetSelectedBackgroundColor(tcell.ColorBlack)
-	list.SetSelectedTextColor(tcell.ColorWhite)
+	list.SetSelectedStyle(theme.FocusedStyle)
 	list.SetHighlightFullLine(true)
 
 	list.SetMainTextStyle(theme.AppItemStyle)
