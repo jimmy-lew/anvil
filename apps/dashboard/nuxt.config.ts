@@ -18,11 +18,20 @@ export default defineNuxtConfig({
     },
   },
 
+  devServer: {
+    host: '0',
+  },
+
   css: ['~/assets/css/tailwind.css'],
   vite: {
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     plugins: [
       tailwindcss(),
     ],
+    server: {
+      strictPort: true,
+    },
   },
 
   components: [
@@ -98,6 +107,8 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  ignore: ['**/src_tauri/**'],
 
   compatibilityDate: '2026-12-25',
 })
