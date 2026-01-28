@@ -2,12 +2,12 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "anvil_dashboard",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.nvil.dev",
   "build": {
-    "frontendDist": "../dist",
+    "frontendDist": "../.output",
     "devUrl": "http://localhost:3000",
     "beforeDevCommand": "pnpm dev",
-    "beforeBuildCommand": "pnpm prepare"
+    "beforeBuildCommand": "pnpm build"
   },
   "app": {
     "windows": [
@@ -21,7 +21,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["deb", "msi"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
