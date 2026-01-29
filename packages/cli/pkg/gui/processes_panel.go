@@ -17,7 +17,7 @@ func (g *Gui) RefreshProcesses(processes map[string]*process.AppProcess) {
 	width -= 2
 
 	for name, proc := range processes {
-		icon := theme.StatusStopped
+		icon := theme.StatusInactive
 		if proc.Running {
 			icon = theme.StatusRunning
 		}

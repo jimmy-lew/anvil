@@ -19,14 +19,7 @@ func (g *Gui) UpdateInfo(proc *process.AppProcess) {
 	info := fmt.Sprintf(`[yellow]App:[white]      %s
 [yellow]Path:[white]     %s
 [yellow]Command:[white]  %s
-
-[yellow]Keybindings:[white]
-  [cyan]j/k, ↑/↓[white] - Navigate
-  [cyan]S[white] - Start
-  [cyan]s[white] - Stop
-  [cyan]R[white] - Restart
-  [cyan]c[white] - Clear logs
-  [cyan]q[white] - Quit`, proc.Name, proc.Path, cmdStr)
+`, proc.Name, proc.Path, cmdStr)
 
 	g.Info.SetText(info)
 }

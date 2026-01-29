@@ -6,11 +6,12 @@ import (
 )
 
 var (
-	BorderFocusColor = tcell.Color62
+	BorderFocusColor = tcell.ColorBlue
 	BorderBlurColor  = tcell.ColorGray
-	FocusedColor     = tcell.NewRGBColor(60, 64, 72)
+	FocusedColor     = tcell.ColorBlack
 	StatusRunning    = "[green]●"
 	StatusStopped    = "[red]○"
+	StatusInactive   = "○"
 	AppItemStyle     = tcell.StyleDefault.Background(tcell.ColorDefault).Foreground(tcell.ColorWhite)
 	FocusedStyle     = tcell.StyleDefault.Background(FocusedColor).Bold(true)
 )
