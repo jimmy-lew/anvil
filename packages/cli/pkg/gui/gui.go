@@ -10,8 +10,10 @@ type Gui struct {
 	Logs          *tview.TextView
 	Stats         *tview.TextView
 	Info          *tview.TextView
+	Help          *Help
 	Focusable     []tview.Primitive
 	FocusIndex    int
+	Layout        *tview.Flex
 }
 
 func NewGui() *Gui {

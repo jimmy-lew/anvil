@@ -31,6 +31,13 @@ func (app *App) setupKeybindings() {
 			app.Manager.StartProcess(app.SelectedProc, app.AddLog)
 		case 'x':
 			app.Manager.StopProcess(app.SelectedProc)
+		case '?':
+			app.Gui.Help.ToggleHelp()
+			if app.Gui.Help.IsVisible() {
+				app.Gui.Layout.ResizeItem(app.Gui.Help, 7, 0)
+			} else {
+				app.Gui.Layout.ResizeItem(app.Gui.Help, 0, 0)
+			}
 		}
 		return event
 	})

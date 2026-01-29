@@ -15,6 +15,11 @@ func (g *Gui) SetupLayout() {
 		AddItem(leftColumn, 0, 1, true).
 		AddItem(rightColumn, 0, 2, false)
 
+	layout := tview.NewFlex().SetDirection(tview.FlexRow).
+		AddItem(main, 0, 1, true).
+		AddItem(g.Help, 0, 0, false)
+
 	g.Focusable = []tview.Primitive{g.ProcessesList, g.Logs, g.Stats, g.Info}
-	g.App.SetRoot(main, true)
+	g.App.SetRoot(layout, true)
+	g.Layout = layout
 }

@@ -36,6 +36,15 @@ func (app *App) setupUI() {
 	app.Gui.Logs = app.Gui.CreateTextView("Logs", true)
 	app.Gui.Stats = app.Gui.CreateTextView("Stats", false)
 	app.Gui.Info = app.Gui.CreateTextView("Info", true)
+	app.Gui.Help = app.Gui.CreateHelp([]gui.KeyBinding{
+		{Key: "↑/k", Desc: "up"},
+		{Key: "↓/j", Desc: "down"},
+		{Key: "enter", Desc: "select"},
+		{Key: "q", Desc: "quit"},
+		{Key: "?", Desc: "toggle help"},
+		{Key: "tab", Desc: "next section"},
+		{Key: "shift+tab", Desc: "prev section"},
+	})
 
 	app.Gui.RefreshProcesses(app.Manager.Processes)
 
