@@ -3,8 +3,6 @@
   <p><em>Forge.</em></p>
 </div>
 
-<!--[![version](https://img.shields.io/github/v/tag/jimmy-lew/anvil?&style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/releases)-->
-
 [![version](https://img.shields.io/badge/Anvil%20Discord-000000?logo=discord)](https://discord.gg/Ew7Tgr3)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat&colorA=000&colorB=000)](LICENSE)
 [![activity](https://img.shields.io/github/commit-activity/m/jimmy-lew/anvil?style=flat&colorA=000&colorB=000)](https://github.com/jimmy-lew/anvil/commits)
@@ -21,12 +19,12 @@
 
 **macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jimmy-lew/anvil/main/install.sh | sh
+curl -fsSL https://app.nvil.dev/install.sh | sh
 ```
 
 **Windows:**
 ```powershell
-iwr -useb https://raw.githubusercontent.com/jimmy-lew/anvil/main/install.ps1 | iex
+iwr -useb https://app.nvil.dev/install.ps1 | iex
 ```
 
 The installer will guide you through the rest. You can choose to download the latest version (Recommended) or build from source.
