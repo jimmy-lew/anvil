@@ -1,12 +1,13 @@
-import process from 'node:process'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { admin, magicLink } from 'better-auth/plugins'
 import * as schema from '~~/db/schema'
 import { db } from './db'
 
+const { BETTER_AUTH_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DISCORD_CLIENT_SECRET, DISCORD_CLIENT_ID } = useRuntimeConfig()
+
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_BASE_URL,
+  baseURL: BETTER_AUTH_URL as string,
   database: drizzleAdapter(db, {
     provider: 'sqlite',
     schema,
@@ -16,12 +17,12 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: GOOGLE_CLIENT_ID as string,
+      clientSecret: GOOGLE_CLIENT_SECRET as string,
     },
     discord: {
-      clientId: process.env.DISCORD_CLIENT_ID as string,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      clientId: DISCORD_CLIENT_ID as string,
+      clientSecret: DISCORD_CLIENT_SECRET as string,
     },
   },
   plugins: [
