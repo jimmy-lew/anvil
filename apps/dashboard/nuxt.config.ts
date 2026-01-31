@@ -108,5 +108,5 @@ export default defineNuxtConfig({
 
   ignore: ['**/src_tauri/**'],
 
-  compatibilityDate: '2026-12-25',
+  compatibilityDate: '2025-12-25',
 })
