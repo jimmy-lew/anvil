@@ -4,10 +4,8 @@ import { admin, magicLink } from 'better-auth/plugins'
 import * as schema from '~~/db/schema'
 import { db } from './db'
 
-const { BETTER_AUTH_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DISCORD_CLIENT_SECRET, DISCORD_CLIENT_ID } = useRuntimeConfig()
-
 export const auth = betterAuth({
-  baseURL: BETTER_AUTH_URL as string,
+  baseURL: process.env.BETTER_AUTH_BASE_URL,
   database: drizzleAdapter(db, {
     provider: 'sqlite',
     schema,
@@ -17,12 +15,12 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: GOOGLE_CLIENT_ID as string,
-      clientSecret: GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     discord: {
-      clientId: DISCORD_CLIENT_ID as string,
-      clientSecret: DISCORD_CLIENT_SECRET as string,
+      clientId: process.env.DISCORD_CLIENT_ID as string,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     },
   },
   plugins: [

@@ -98,14 +98,14 @@ export default defineNuxtConfig({
   ignore: ['**/src_tauri/**'],
 
   runtimeConfig: {
-    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
-    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
-    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
-    TURSO_CONNECTION_URL: process.env.TURSO_CONNECTION_URL,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    // BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+    // BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+    // TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
+    // TURSO_CONNECTION_URL: process.env.TURSO_CONNECTION_URL,
+    // GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    // GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+    // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   },
 
   compatibilityDate: '2025-12-25',
