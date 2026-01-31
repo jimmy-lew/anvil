@@ -7,14 +7,6 @@ export default defineNuxtConfig({
     '@lib': '../../packages',
   },
 
-  devtools: {
-    enabled: false,
-
-    timeline: {
-      enabled: false,
-    },
-  },
-
   css: ['~/assets/css/tailwind.css'],
   vite: {
     clearScreen: false,
