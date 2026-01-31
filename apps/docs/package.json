@@ -1,0 +1,17 @@
+{
+  "name": "anvil",
+  "scripts": {
+    "dev": "nuxt dev --extends docus",
+    "build": "nuxt build --extends docus"
+  },
+  "dependencies": {
+    "@number-flow/vue": "^0.4.9",
+    "@nuxt/fonts": "0.13.0",
+    "@vueuse/core": "^12.8.2",
+    "@vueuse/motion": "^3.0.3",
+    "@vueuse/nuxt": "^12.8.2",
+    "better-sqlite3": "^12.5.0",
+    "docus": "latest",
+    "nuxt": "^4.2.2"
+  }
+}

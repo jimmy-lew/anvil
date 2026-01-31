@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme inline {
+  --font-sans: "Geist", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    "Geist Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+@theme static {
+  --color-zinc-800: #141414;
+  --color-zinc-900: #000000;
+  --color-zinc-950: #000000;
+}
