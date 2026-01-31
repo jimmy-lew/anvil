@@ -22,7 +22,7 @@ useHead({
   bodyAttrs: {
     class: computed(
       () =>
-        `color-${theme.value?.color || 'default'} theme-${theme.value?.type || 'default'}`,
+        `color-${theme.value?.color || 'default'} theme-${theme.value?.type || 'mono'}`,
     ),
   },
 })
