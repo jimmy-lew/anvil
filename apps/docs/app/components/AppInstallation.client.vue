@@ -14,7 +14,8 @@ const installCmd = computed(() => {
   if (!betaOptIn.value) {
     return baseCmd
   }
-  return baseCmd
+  const betaSuffix = clientOS.value === 'Windows' ? '--beta' : '-s -- --beta'
+  return `${baseCmd} ${betaSuffix}`
 })
 
 function getClientOS(): OsType {
@@ -34,6 +35,10 @@ function toggleOs() {
   clientOS.value = 'Windows'
 }
 
+function toggleBeta() {
+  betaOptIn.value = !betaOptIn.value
+}
+
 const { copy, copied } = useClipboard()
 
 onMounted(() => {
@@ -43,13 +48,13 @@ onMounted(() => {
 
 <template>
   <div class="flex items-center justify-center pt-4">
-    <div class="border border-accented rounded-xl w-215 font-mono">
+    <div class="border border-accented rounded-xl w-180 font-mono">
       <div class="flex items-center justify-end px-4 py-3 text-xs gap-2 border-b border-accented">
         {{ clientOS === 'Windows' ? 'Windows' : 'macOS/Linux' }}
         <UButton variant="link" class="text-xs" @click="toggleOs">
           change
         </UButton>
-        <UButton variant="outline" color="neutral" class="text-xs">
+        <UButton variant="outline" :color="betaOptIn ? 'primary' : 'neutral'" class="text-xs" @click="toggleBeta">
           <UIcon name="mdi:beta" />
           LTS
         </UButton>
