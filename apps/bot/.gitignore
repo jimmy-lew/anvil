@@ -1,8 +1,6 @@
 /dist
 /temp
 
-config.yaml
-
 # Logs
 logs
 *.log

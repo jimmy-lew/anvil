@@ -1,0 +1,41 @@
+env: dev
+client:
+  intents:
+    - Guilds
+    - GuildMessages
+    - GuildMessageReactions
+    - GuildMembers
+    - GuildModeration
+    - MessageContent
+    - DirectMessages
+    - DirectMessageReactions
+  partials:
+    - User
+    - Message
+    - Channel
+    - Reaction
+  caches:
+    AutoModerationRuleManager: 0
+    MessageManager: 10000
+    ThreadManager: 10
+    ThreadMemberManager: 0
+jobs: {}
+rateLimiting:
+  commands:
+    amount: 10
+    interval: 30
+  buttons:
+    amount: 10
+    interval: 30
+  triggers:
+    amount: 10
+    interval: 30
+  reactions:
+    amount: 10
+    interval: 30
+logging:
+  rateLimit:
+    minTimeout: 30
+  sse:
+    route: /59ZOWyNd9hp2aXTr91atfHmroJpeuLcWEM8LajcLkFM
+    port: 3333
