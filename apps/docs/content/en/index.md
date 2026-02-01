@@ -6,23 +6,8 @@ seo:
     Powered by Nuxt UI.
 ---
 
-::u-page-hero
-#title
-Forge fanatically.
-
-#description
-Create mods with extreme ease and flexibility.
-
-Anvil brings the best of the Hytale modding ecosystem into one app.
-
-:::hero-links
+:::hero
 :::
-
-:::app-installation
-:::
-
-::
-
 
 <!--::u-page-section
 #title
