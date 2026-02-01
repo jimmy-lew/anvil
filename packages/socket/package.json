@@ -5,12 +5,19 @@
   "author": "Jimmy Lew <jvnu@proton.me>",
   "license": "MIT",
   "keywords": [],
-  "main": "./index.ts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "scripts": {
     "build": "tsdown",
     "lint": "eslint --fix ."
   },
   "devDependencies": {
-    "@types/node": "^25.0.10"
-  }
+    "@types/node": "^25.0.10",
+    "tsdown": "^0.18.4"
+  },
+  "types": "./dist/index.d.mts"
 }

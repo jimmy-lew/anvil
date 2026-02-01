@@ -309,12 +309,18 @@ importers:
       '@types/node':
         specifier: ^25.0.10
         version: 25.0.10
+      tsdown:
+        specifier: ^0.18.4
+        version: 0.18.4(synckit@0.11.12)(typescript@5.9.3)
 
   packages/utils:
     devDependencies:
       '@types/node':
         specifier: ^25.0.10
         version: 25.0.10
+      tsdown:
+        specifier: ^0.18.4
+        version: 0.18.4(synckit@0.11.12)(typescript@5.9.3)
 
 packages:
 
