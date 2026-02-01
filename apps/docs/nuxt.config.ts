@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'motion-v/nuxt',
   ],
+  extends: ['docus'],
   css: ['~/assets/css/main.css'],
   i18n: {
     defaultLocale: 'en',
