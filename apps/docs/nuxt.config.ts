@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/fonts',
     '@vueuse/nuxt',
+    'motion-v/nuxt',
   ],
   css: ['~/assets/css/main.css'],
   i18n: {

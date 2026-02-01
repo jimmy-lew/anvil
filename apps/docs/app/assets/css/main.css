@@ -2,6 +2,7 @@
 @import "@nuxt/ui";
 
 @theme inline {
+  --font-header: "Outfit", "Geist", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     "Geist Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
