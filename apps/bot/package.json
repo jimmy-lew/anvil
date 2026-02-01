@@ -12,7 +12,7 @@
   ],
   "main": "./dist/start.mjs",
   "engines": {
-    "node": ">=25.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "lint": "eslint . --cache",
