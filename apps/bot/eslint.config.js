@@ -1,6 +1,6 @@
 // @ts-check
 /* eslint perfectionist/sort-objects: "error" */
-import base from '../../eslint.config.mjs'
+import base from '@anvil/eslint'
 
 export default base
   .removeRules(

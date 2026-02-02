@@ -1,0 +1,12 @@
+{
+  "name": "@anvil/eslint",
+  "type": "module",
+  "exports": {
+    ".": "./eslint.base.ts"
+  },
+  "dependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-format": "catalog:"
+  }
+}

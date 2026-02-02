@@ -30,6 +30,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@anvil/eslint": "workspace:*",
     "@anvil/logger": "workspace:^",
     "@anvil/socket": "workspace:^",
     "@anvil/utils": "workspace:*",

@@ -1,4 +1,4 @@
-import base from '../../eslint.config.mjs'
+import base from '@anvil/eslint'
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(

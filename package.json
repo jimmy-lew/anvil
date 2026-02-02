@@ -11,9 +11,6 @@
     "test": "turbo test"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-format": "catalog:",
     "turbo": "catalog:",
     "typescript": "^5.9.2"
   }

@@ -41,6 +41,7 @@
     "db:studio": "drizzle-kit studio --config ./drizzle.config.ts"
   },
   "dependencies": {
+    "@anvil/eslint": "workspace:*",
     "@iconify-json/lucide": "catalog:",
     "@iconify-json/radix-icons": "catalog:",
     "@internationalized/date": "catalog:",
