@@ -24,6 +24,7 @@
     "thread-stream": "catalog:"
   },
   "devDependencies": {
+    "@anvil/tsconf": "workspace:*",
     "@types/atomic-sleep": "catalog:",
     "@types/node": "^25.0.10",
     "tsdown": "^0.18.4"
