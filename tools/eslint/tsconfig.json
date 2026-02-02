@@ -1,0 +1,4 @@
+{
+  "extends": "@anvil/tsconf/tsconfig.base.json",
+  "include": ["."],
+}

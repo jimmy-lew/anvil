@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@antfu/ni": "catalog:",
+    "@anvil/tsconf": "workspace:*",
     "@types/node": "^25.0.3",
     "@vitest/coverage-v8": "catalog:",
     "drizzle-kit": "catalog:",

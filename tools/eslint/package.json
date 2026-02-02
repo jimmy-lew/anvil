@@ -4,8 +4,9 @@
   "exports": {
     ".": "./eslint.base.ts"
   },
-  "dependencies": {
+  "devDependencies": {
     "@antfu/eslint-config": "catalog:",
+    "@anvil/tsconf": "workspace:*",
     "eslint": "catalog:",
     "eslint-plugin-format": "catalog:"
   }

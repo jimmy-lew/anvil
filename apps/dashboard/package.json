@@ -24,7 +24,7 @@
     "types"
   ],
   "engines": {
-    "node": "20.x",
+    "node": ">=20.x",
     "pnpm": ">=9"
   },
   "scripts": {

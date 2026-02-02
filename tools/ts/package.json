@@ -1,0 +1,6 @@
+{
+  "name": "@anvil/tsconf",
+  "private": true,
+  "type": "module",
+  "files": ["*.json"]
+}
