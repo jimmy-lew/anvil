@@ -1,0 +1,27 @@
+services:
+  dashboard:
+    build:
+      context: ./apps/dashboard
+      target: dashboard
+    image: jvnus/anvil_dashboard:latest
+    ports:
+      - "4000:4000"
+      - "9000:9000"
+    env_file:
+      - ./apps/dashboard/.env
+  bot:
+    build:
+      context: ./apps/bot
+      target: bot
+    image: jvnus/anvil:latest
+    env_file:
+      - ./apps/bot/.env
+  docs:
+    build:
+      context: ./apps/docs
+      target: docs
+    image: jvnus/anvil_docs:latest
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./apps/docs/.env
