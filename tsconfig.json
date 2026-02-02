@@ -17,7 +17,7 @@
       "path": "./packages/utils",
     },
     {
-      "path": "./packages/sockets",
+      "path": "./packages/socket",
     },
   ],
 }
