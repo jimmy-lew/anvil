@@ -17,8 +17,8 @@ export default defineNuxtConfig({
       code: 'fr',
       name: 'Français',
     }, {
-      code: 'zh-CN',
-      name: '中文',
+      code: 'ja',
+      name: '日本語',
     }],
   },
 })
