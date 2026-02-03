@@ -12,7 +12,6 @@ export default defineConfig(
       outDir: 'dist',
       clean: true,
       minify: false,
-      logLevel: 'error',
       sourcemap: true,
       shims: true,
 
@@ -27,10 +26,10 @@ export default defineConfig(
 
       noExternal: [/.*/],
 
-      outDir: 'dist/ext',
+      outDir: 'dist/lib',
+      outExtensions: _ => ({ js: '.js' }),
       clean: true,
       minify: false,
-      logLevel: 'error',
       sourcemap: true,
       shims: true,
 
@@ -48,7 +47,6 @@ export default defineConfig(
       outDir: 'dist',
       clean: true,
       minify: false,
-      logLevel: 'error',
       sourcemap: true,
       shims: true,
 

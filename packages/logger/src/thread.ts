@@ -5,11 +5,6 @@ import { isMainThread } from 'node:worker_threads'
 import * as onExitLeakFree from 'on-exit-leak-free'
 import ThreadStream from 'thread-stream'
 
-// @ts-expect-error No type def available
-globalThis.__bundlerPathsOverrides = {
-  "thread-stream-worker": join(__dirname, './ext/worker.mjs')
-}
-
 // Workaround since threadstream does not adequately expose all it's props
 interface _ThreadStream extends ThreadStream {
   ref: () => void
