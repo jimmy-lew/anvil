@@ -29,6 +29,7 @@
   },
   "scripts": {
     "build": "nuxt build",
+    "postbuild": "node scripts/libsql.js",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -63,7 +64,11 @@
   },
   "optionalDependencies": {
     "@libsql/darwin-arm64": "catalog:",
-    "@libsql/linux-x64-musl": "catalog:"
+    "@libsql/darwin-x64": "catalog:",
+    "@libsql/linux-x64-gnu": "catalog:",
+    "@libsql/linux-x64-musl": "catalog:",
+    "@libsql/linux-arm64-gnu": "catalog:",
+    "@libsql/linux-arm64-musl": "catalog:"
   },
   "devDependencies": {
     "@nuxt/eslint": "catalog:",
