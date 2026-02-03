@@ -1,5 +1,5 @@
 import { Writable } from 'node:stream'
-import { InternalSocket } from '@lib/socket'
+import { InternalSocket } from '@anvil/socket'
 
 export class TcpTransport extends Writable {
   client: InternalSocket

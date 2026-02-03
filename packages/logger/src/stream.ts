@@ -1,6 +1,6 @@
 import type { TransformCallback } from 'node:stream'
 import { Writable } from 'node:stream'
-import { LineBuffer } from '@lib/utils'
+import { LineBuffer } from '@anvil/utils'
 
 type Nullable<T> = T | null
 

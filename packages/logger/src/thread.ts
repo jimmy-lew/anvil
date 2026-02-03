@@ -1,9 +1,14 @@
+import { join } from 'node:path'
 import type { Writable } from 'node:stream'
 import { isMainThread } from 'node:worker_threads'
-import sleep from 'atomic-sleep'
 // @ts-expect-error No type def available
 import * as onExitLeakFree from 'on-exit-leak-free'
 import ThreadStream from 'thread-stream'
+
+// @ts-expect-error No type def available
+globalThis.__bundlerPathsOverrides = {
+  "thread-stream-worker": join(__dirname, './ext/worker.mjs')
+}
 
 // Workaround since threadstream does not adequately expose all it's props
 interface _ThreadStream extends ThreadStream {
@@ -49,7 +54,6 @@ export function Thread(streams: Writable[] = [], sync: boolean = false): ThreadS
     if (stream.closed)
       return
     stream.flushSync()
-    sleep(100)
     stream.end()
   }
   stream.on('ready', () => ready(stream, onExit))

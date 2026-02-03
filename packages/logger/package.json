@@ -17,7 +17,8 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "atomic-sleep": "catalog:",
+    "@anvil/socket": "workspace:*",
+    "@anvil/utils": "workspace:*",
     "nanoid": "catalog:",
     "on-exit-leak-free": "catalog:",
     "sonic-boom": "catalog:",
