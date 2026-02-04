@@ -1,19 +1,23 @@
 <script setup lang="ts">
-const animationTriggered = ref(false)
+const pageLoaded = ref(false)
 
 onMounted(() => {
   setTimeout(() => {
-    animationTriggered.value = true
+    pageLoaded.value = true
   }, 500)
 })
 </script>
 
 <template>
-  <UPageHero>
+  <UPageHero
+    :ui="{
+      body: 'mt-6 flex flex-col items-center justify-center gap-6',
+    }"
+  >
     <template #title>
       <div class="relative inline-block">
         <Motion
-          v-if="animationTriggered"
+          v-if="pageLoaded"
           :initial="{ y: -130, x: 50, rotate: 25, opacity: 1 }"
           :animate="{ rotate: -45 }"
           :transition="{
@@ -36,7 +40,7 @@ onMounted(() => {
 
         <Motion
           :initial="{ y: 0 }"
-          :animate="animationTriggered ? {
+          :animate="pageLoaded ? {
             y: [0, 8, -4, 0],
           } : { y: 0 }"
           :transition="{

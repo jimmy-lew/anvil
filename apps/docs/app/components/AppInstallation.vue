@@ -47,7 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center pt-4">
+  <div class="flex items-center justify-center">
     <div class="border border-accented rounded-xl w-180 font-mono">
       <div class="flex items-center justify-end px-4 py-3 text-xs gap-2 border-b border-accented">
         {{ clientOS === 'Windows' ? 'Windows' : 'macOS/Linux' }}
