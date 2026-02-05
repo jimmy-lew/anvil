@@ -21,7 +21,7 @@ onMounted(() => {
       Docs
     </UButton>
     <UButton
-      to="https://discord.gg/Ew7Tgr3"
+      to="https://discord.gg/Xgg5ZNBBvu"
       target="_blank"
       variant="outline"
       color="neutral"
