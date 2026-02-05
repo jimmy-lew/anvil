@@ -7,8 +7,10 @@
   "dependencies": {
     "@anvil/eslint": "workspace:*",
     "@number-flow/vue": "catalog:",
+    "@nuxt/content": "^3.11.0",
     "@nuxt/fonts": "0.13.0",
     "@nuxt/ui": "catalog:",
+    "@nuxtjs/robots": "5.7.0",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
     "@vueuse/nuxt": "catalog:",
@@ -17,5 +19,8 @@
     "motion-v": "^1.9.0",
     "nuxt": "^4.2.2",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "nuxt-og-image": "^5.1.13"
   }
 }
