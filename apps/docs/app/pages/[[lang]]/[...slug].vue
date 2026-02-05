@@ -5,6 +5,7 @@ import { kebabCase } from 'scule'
 
 definePageMeta({
   layout: 'docs',
+  header: false,
 })
 
 const route = useRoute()
@@ -69,7 +70,7 @@ const editLink = computed(() => {
     v-if="page"
     :key="`page-${page.id}`"
   >
-    <UPageHeader
+    <!-- <UPageHeader
       :title="page.title"
       :description="page.description"
       :headline="headline"
@@ -87,7 +88,7 @@ const editLink = computed(() => {
 
         <DocsPageHeaderLinks />
       </template>
-    </UPageHeader>
+    </UPageHeader> -->
 
     <UPageBody>
       <ContentRenderer
@@ -132,8 +133,11 @@ const editLink = computed(() => {
     >
       <UContentToc
         highlight
-        :title="appConfig.toc?.title || t('docs.toc')"
+        title=" "
         :links="page.body?.toc?.links"
+        :ui="{
+          root: 'lg:top-0',
+        }"
       >
         <template #bottom>
           <DocsAsideRightBottom />

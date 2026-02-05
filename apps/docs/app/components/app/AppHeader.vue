@@ -18,7 +18,7 @@ const links = computed(() => appConfig.github && appConfig.github.url
 
 <template>
   <UHeader
-    :ui="{ center: 'flex-1' }"
+    :ui="{ center: 'w-full h-full' }"
     :to="localePath('/')"
     :title="appConfig.header?.title || site.name"
   >
@@ -44,7 +44,7 @@ const links = computed(() => appConfig.github && appConfig.github.url
         class="h-8"
       />
 
-      <UContentSearchButton class="lg:hidden" />
+      <!-- <UContentSearchButton class="lg:hidden" /> -->
 
       <ClientOnly>
         <UColorModeButton />

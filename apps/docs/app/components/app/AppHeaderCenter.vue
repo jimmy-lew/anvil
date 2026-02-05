@@ -1,10 +1,6 @@
 <template>
-  <UContentSearchButton
-    :collapsed="false"
-    class="w-full"
-    variant="soft"
-    :ui="{
-      leadingIcon: 'size-4 mr-1',
-    }"
-  />
+  <!-- <div class="border-x border-default h-full w-full">
+    Test
+  </div> -->
+  <div />
 </template>

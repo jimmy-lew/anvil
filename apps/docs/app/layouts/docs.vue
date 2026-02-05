@@ -3,7 +3,11 @@
     <UContainer>
       <UPage>
         <template #left>
-          <UPageAside>
+          <UPageAside
+            :ui="{
+              root: 'lg:max-h-screen lg:top-0',
+            }"
+          >
             <DocsAsideLeftTop />
             <DocsAsideLeftBody />
           </UPageAside>
