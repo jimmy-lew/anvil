@@ -1,25 +1,27 @@
 services:
-  dashboard:
+  bot:
     build:
-      context: ./apps/dashboard
-      target: dashboard
+      context: .
+      dockerfile: ./apps/bot/Dockerfile
+    image: jvnus/anvil:latest
+    env_file:
+      - ./apps/bot/.env
+  dashboard:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: ./apps/dashboard/Dockerfile
     image: jvnus/anvil_dashboard:latest
     ports:
       - "4000:4000"
       - "9000:9000"
     env_file:
       - ./apps/dashboard/.env
-  bot:
-    build:
-      context: ./apps/bot
-      target: bot
-    image: jvnus/anvil:latest
-    env_file:
-      - ./apps/bot/.env
   docs:
+    platform: linux/arm64
     build:
-      context: ./apps/docs
-      target: docs
+      context: .
+      dockerfile: ./apps/docs/Dockerfile
     image: jvnus/anvil_docs:latest
     ports:
       - "4001:4001"
