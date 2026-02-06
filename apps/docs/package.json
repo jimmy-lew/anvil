@@ -10,6 +10,7 @@
     "@nuxt/content": "^3.11.0",
     "@nuxt/fonts": "catalog:",
     "@nuxt/ui": "catalog:",
+    "@nuxtjs/i18n": "^10.2.1",
     "@nuxtjs/robots": "5.7.0",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
@@ -19,7 +20,7 @@
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
-    "nuxt-og-image": "^5.1.13",
-    "nuxt": "catalog:"
+    "nuxt": "catalog:",
+    "nuxt-og-image": "^5.1.13"
   }
 }
