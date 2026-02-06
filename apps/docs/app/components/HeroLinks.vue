@@ -4,10 +4,10 @@ interface GithubAPICommitResponse {
   node_id: string
 }
 
+const { locale, t } = useInternalI18n()
+
 const { data } = useFetch<GithubAPICommitResponse[]>('https://api.github.com/repos/jimmy-lew/anvil/commits?per_page=1')
 const memberCount = ref(0)
-const route = useRoute()
-const commitSha = computed(() => data.value?.at(0)?.sha.substring(0, 6))
 const isHovered = ref(false)
 
 onMounted(() => {
@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="flex justify-center items-center gap-2">
-    <UButton :to="`${route.path}/getting-started/introduction`" icon="lucide-book" variant="outline" color="neutral">
+    <UButton :to="`/${locale}/getting-started/introduction`" icon="lucide-book" variant="outline" color="neutral">
       Docs
     </UButton>
     <UButton
