@@ -36,7 +36,7 @@ onMounted(() => {
           ? { opacity: 1, scale: 1, y: 0 }
           : { opacity: 0, scale: 0.8, y: 10 }"
         :transition="{ type: 'spring', stiffness: 300, damping: 20 }"
-        class="absolute left-2 -top-full mt-2 flex items-center justify-center gap-1 text-green-400"
+        class="absolute w-full left-1/2 -translate-x-1/2 -top-full mt-2 flex items-center justify-center gap-1 text-green-400"
       >
         <UIcon name="lucide-circle-user-round" />
         {{ memberCount }} members
