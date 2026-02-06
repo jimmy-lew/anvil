@@ -51,18 +51,22 @@ onMounted(() => {
           }"
         >
           <h1 class="font-header relative">
-            Forge fanatically.
+            <slot name="title">
+              Forge fanatically.
+            </slot>
           </h1>
         </Motion>
       </div>
     </template>
     <template #description>
-      <p class="my-5 leading-7 text-pretty">
-        Create mods with extreme ease and flexibility.
-      </p>
-      <p class="my-5 leading-7 text-pretty">
-        Anvil brings the best of the Hytale modding ecosystem into one app.
-      </p>
+      <slot name="description">
+        <ProseP>
+          Create mods with extreme ease and flexibility
+        </ProseP>
+        <ProseP>
+          Anvil brings the best of the Hytale modding ecosystem into one app.
+        </ProseP>
+      </slot>
     </template>
     <template #body>
       <HeroLinks />
