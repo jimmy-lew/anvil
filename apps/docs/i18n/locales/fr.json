@@ -6,6 +6,10 @@
       "description": "Nous sommes désolés, mais la page que vous cherchez n'existe pas."
     }
   },
+  "discord": {
+    "join": "Join the Smithy!",
+    "members": "%s membres"
+  },
   "docs": {
     "copy": {
       "page": "Copier la page",

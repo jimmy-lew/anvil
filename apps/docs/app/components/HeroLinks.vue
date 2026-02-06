@@ -9,6 +9,8 @@ const { locale, t } = useInternalI18n()
 const { data } = useFetch<GithubAPICommitResponse[]>('https://api.github.com/repos/jimmy-lew/anvil/commits?per_page=1')
 const memberCount = ref(0)
 const isHovered = ref(false)
+const commitSha = computed(() => data.value?.at(0)?.sha.substring(0, 6))
+const memberCountText = computed(() => t('discord.members').replace('%s', memberCount.value.toString()))
 
 onMounted(() => {
   memberCount.value = 122
@@ -29,7 +31,7 @@ onMounted(() => {
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
     >
-      Join the Smithy!
+      {{ t('discord.join') }}
       <Motion
         :initial="{ opacity: 0, scale: 0.8, y: 10 }"
         :animate="isHovered
@@ -39,7 +41,7 @@ onMounted(() => {
         class="absolute w-full left-1/2 -translate-x-1/2 -top-full mt-2 flex items-center justify-center gap-1 text-green-400"
       >
         <UIcon name="lucide-circle-user-round" />
-        {{ memberCount }} members
+        {{ memberCountText }}
       </Motion>
     </UButton>
     <UButton to="https://github.com/jimmy-lew/anvil/tree/main" target="_blank" variant="outline" color="neutral">
