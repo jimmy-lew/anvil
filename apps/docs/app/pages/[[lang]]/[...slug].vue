@@ -18,7 +18,7 @@ const collectionName = computed<keyof Collections>(() => `docs_${locale.value}`)
 
 const [{ data: page }, { data: surround }] = await Promise.all([
   useAsyncData(routeKey, () => queryCollection(collectionName.value).path(route.path).first()),
-  useAsyncData(`${routeKey}-surround`, () => { return queryCollectionItemSurroundings(collectionName.value, route.path) }),
+  useAsyncData(`${routeKey}-surround`, () => queryCollectionItemSurroundings(collectionName.value, route.path)),
 ])
 
 if (!page.value) {
@@ -46,16 +46,8 @@ defineOgImageComponent('Docs', {
 </script>
 
 <template>
-  <UPage
-    v-if="page"
-    :key="`page-${page.id}`"
-    :ui="{
-      root: 'flex flex-col lg:grid lg:grid-cols-10 lg:gap-10',
-      left: 'lg:col-span-2',
-      center: 'lg:col-span-7',
-      right: 'lg:col-span-3 order-first lg:order-last',
-    }"
-  >
+  <DocsHeader />
+  <div class="flex items-start gap-10 mx-auto pt-18 px-12 max-w-5xl">
     <UPageBody>
       <ContentRenderer
         v-if="page"
@@ -64,12 +56,6 @@ defineOgImageComponent('Docs', {
 
       <ContentSurround :surround />
     </UPageBody>
-
-    <template
-      v-if="page?.body?.toc?.links?.length"
-      #right
-    >
-      <ContentToc :links="page.body?.toc.links" />
-    </template>
-  </UPage>
+    <ContentToc v-if="page?.body?.toc" :links="page.body?.toc.links" />
+  </div>
 </template>
