@@ -145,7 +145,7 @@ onMounted(() => {
         <div class="hidden lg:block relative">
           <div
             v-if="highlight"
-            class="absolute ms-2.5 bg-white transition-[translate,height] duration-200 h-(--indicator-height) translate-y-(--indicator-position) w-0.5 -left-px rounded-full"
+            class="absolute ms-2.5 bg-inverted transition-[translate,height] duration-200 h-(--indicator-height) translate-y-(--indicator-position) w-0.5 -left-px rounded-full"
             :style="indicatorStyle"
           />
           <ReuseListTemplate :links="links" :level="0" />
