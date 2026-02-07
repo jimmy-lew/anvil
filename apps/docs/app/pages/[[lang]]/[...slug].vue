@@ -5,6 +5,7 @@ import { kebabCase } from 'scule'
 
 definePageMeta({
   layout: 'docs',
+  header: false,
   footer: false,
 })
 
