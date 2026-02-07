@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Collections, ContentNavigationItem, DocsEnCollectionItem } from '@nuxt/content'
+import type { Collections, ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 import { kebabCase } from 'scule'
 
@@ -11,15 +11,13 @@ definePageMeta({
 const route = useRoute()
 const { locale } = useInternalI18n()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const routeKey = kebabCase(route.path)
 
-const collectionName = computed(() => `docs_${locale.value}`)
+const collectionName = computed<keyof Collections>(() => `docs_${locale.value}`)
 
 const [{ data: page }, { data: surround }] = await Promise.all([
-  useAsyncData(kebabCase(route.path), () => queryCollection(collectionName.value as keyof Collections).path(route.path).first() as Promise<DocsEnCollectionItem>),
-  useAsyncData(`${kebabCase(route.path)}-surround`, () => {
-    return queryCollectionItemSurroundings(collectionName.value as keyof Collections, route.path, {
-    })
-  }),
+  useAsyncData(routeKey, () => queryCollection(collectionName.value).path(route.path).first()),
+  useAsyncData(`${routeKey}-surround`, () => { return queryCollectionItemSurroundings(collectionName.value, route.path) }),
 ])
 
 if (!page.value) {
