@@ -5,11 +5,11 @@ import { kebabCase } from 'scule'
 
 definePageMeta({
   layout: 'docs',
+  footer: false,
 })
 
 const route = useRoute()
-const { locale, t } = useInternalI18n()
-const appConfig = useAppConfig()
+const { locale } = useInternalI18n()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const collectionName = computed(() => `docs_${locale.value}`)
@@ -18,7 +18,6 @@ const [{ data: page }, { data: surround }] = await Promise.all([
   useAsyncData(kebabCase(route.path), () => queryCollection(collectionName.value as keyof Collections).path(route.path).first() as Promise<DocsEnCollectionItem>),
   useAsyncData(`${kebabCase(route.path)}-surround`, () => {
     return queryCollectionItemSurroundings(collectionName.value as keyof Collections, route.path, {
-      fields: ['description'],
     })
   }),
 ])
@@ -45,100 +44,33 @@ watch(() => navigation?.value, () => {
 defineOgImageComponent('Docs', {
   headline: headline.value,
 })
-
-const github = computed(() => appConfig.github ? appConfig.github : null)
-
-const editLink = computed(() => {
-  if (!github.value) {
-    return
-  }
-
-  return [
-    github.value.url,
-    'edit',
-    github.value.branch,
-    github.value.rootDir,
-    'content',
-    `${page.value?.stem}.${page.value?.extension}`,
-  ].filter(Boolean).join('/')
-})
 </script>
 
 <template>
   <UPage
     v-if="page"
     :key="`page-${page.id}`"
+    :ui="{
+      root: 'flex flex-col lg:grid lg:grid-cols-10 lg:gap-10',
+      left: 'lg:col-span-2',
+      center: 'lg:col-span-7',
+      right: 'lg:col-span-3 order-first lg:order-last',
+    }"
   >
-    <UPageHeader
-      :title="page.title"
-      :description="page.description"
-      :headline="headline"
-      :ui="{
-        wrapper: 'flex-row items-center flex-wrap justify-between',
-      }"
-    >
-      <template #links>
-        <UButton
-          v-for="(link, index) in (page as DocsEnCollectionItem).links"
-          :key="index"
-          size="sm"
-          v-bind="link"
-        />
-
-        <DocsPageHeaderLinks />
-      </template>
-    </UPageHeader>
-
     <UPageBody>
       <ContentRenderer
         v-if="page"
         :value="page"
       />
 
-      <USeparator>
-        <div
-          v-if="github"
-          class="flex items-center gap-2 text-sm text-muted"
-        >
-          <UButton
-            variant="link"
-            color="neutral"
-            :to="editLink"
-            target="_blank"
-            icon="i-lucide-pen"
-            :ui="{ leadingIcon: 'size-4' }"
-          >
-            {{ t('docs.edit') }}
-          </UButton>
-          <span>{{ t('common.or') }}</span>
-          <UButton
-            variant="link"
-            color="neutral"
-            :to="`${github.url}/issues/new/choose`"
-            target="_blank"
-            icon="i-lucide-alert-circle"
-            :ui="{ leadingIcon: 'size-4' }"
-          >
-            {{ t('docs.report') }}
-          </UButton>
-        </div>
-      </USeparator>
-      <UContentSurround :surround="surround" />
+      <ContentSurround :surround />
     </UPageBody>
 
     <template
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <UContentToc
-        highlight
-        :title="appConfig.toc?.title || t('docs.toc')"
-        :links="page.body?.toc?.links"
-      >
-        <template #bottom>
-          <DocsAsideRightBottom />
-        </template>
-      </UContentToc>
+      <ContentToc :links="page.body?.toc.links" />
     </template>
   </UPage>
 </template>
