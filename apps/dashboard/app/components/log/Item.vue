@@ -8,7 +8,12 @@ const { get_label } = useLogLabel()
 function parse(item: RawLogItem) {
   let msg = item.msg ?? item.content ?? item.event_name
   if (msg === 'NULL' || msg === '') {
-    msg = 'No message'
+    if (item.attachments) {
+      msg = '<Attachment>'
+    }
+    else {
+      msg = 'No message'
+    }
   }
   const parsed = {
     level: item.level,
