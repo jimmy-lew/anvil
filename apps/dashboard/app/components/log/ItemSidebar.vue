@@ -10,10 +10,10 @@ const date = computed(() => { return item.value ? new Date(item.value.time) : ne
 const level = computed(() => get_label(item.value?.level))
 
 const attachments = computed(() => {
-  if (item.value?.attachments === 'NULL') {
+  if (!item.value?.attachments || item.value.attachments === 'NULL') {
     return []
   }
-  return item.value.attachments.split(',').map(a => a.trim()).filter(a => a)
+  return item.value.attachments?.split(',').map(a => a.trim()).filter(a => a)
 })
 
 function openAttachment(url: string) {
