@@ -50,13 +50,9 @@ function getEmojiFlag(locale: string): string {
     <UButton
       color="neutral"
       variant="ghost"
-      class="size-8"
+      class="px-1.5"
     >
-      <template #trailing>
-        <span class="text-lg">
-          {{ getEmojiFlag(locale) }}
-        </span>
-      </template>
+      <UIcon name="lucide-languages" class="w-3.5" />
     </UButton>
 
     <template #content>

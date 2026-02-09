@@ -8,19 +8,19 @@
     "@anvil/eslint": "workspace:*",
     "@number-flow/vue": "catalog:",
     "@nuxt/content": "^3.11.0",
-    "@nuxt/fonts": "0.13.0",
+    "@nuxt/fonts": "catalog:",
     "@nuxt/ui": "catalog:",
+    "@nuxtjs/i18n": "^10.2.1",
     "@nuxtjs/robots": "5.7.0",
     "@vueuse/core": "catalog:",
     "@vueuse/motion": "catalog:",
     "@vueuse/nuxt": "catalog:",
     "better-sqlite3": "catalog:",
-    "docus": "latest",
-    "motion-v": "^1.9.0",
-    "nuxt": "^4.2.2",
-    "tailwindcss": "^4.1.18"
+    "motion-v": "catalog:",
+    "tailwindcss": "catalog:"
   },
   "devDependencies": {
+    "nuxt": "catalog:",
     "nuxt-og-image": "^5.1.13"
   }
 }

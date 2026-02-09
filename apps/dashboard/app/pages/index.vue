@@ -29,7 +29,7 @@ defineShortcuts({
       :transition="{ type: 'spring', stiffness: 300, damping: 30 }"
       class="border-r dark:bg-black overflow-hidden"
     >
-      <div class="w-[270px] h-full">
+      <div class="w-67.5 h-full">
         <LogFilters />
       </div>
     </Motion>

@@ -52,4 +52,6 @@ export default defineNuxtConfig({
       config.prerender.routes.push('/sitemap.xml')
     },
   },
+
+  compatibilityDate: '2026-02-07',
 })
