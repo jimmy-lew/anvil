@@ -2,13 +2,17 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: "src/main.ts",
-  outDir: "dist",
   format: "esm",
-  dts: true,
-  target: "node18",
   platform: "node",
+
+  noExternal: [/.*/],
+
+  outDir: "dist",
   clean: true,
   sourcemap: true,
   minify: false,
+  shims: true,
   treeshake: true,
+
+
 });
