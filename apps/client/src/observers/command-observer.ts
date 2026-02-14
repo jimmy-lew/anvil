@@ -16,7 +16,7 @@ import {
   handleUnknown,
   handleCommandError 
 } from "../handlers/commands.js";
-import { debug, error as logError } from "../effects/logging.js";
+import { error as logError } from "../effects/logging.js";
 
 /**
  * Command registry - maps command names to handlers

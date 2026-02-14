@@ -39,7 +39,7 @@ export const interactionCreate$ = (client: Client): Observable<ChatInputCommandI
  * Ready event observable
  */
 export const ready$ = (client: Client): Observable<void> => 
-  fromEvent(client, Events.Ready as string) as Observable<void>;
+  fromEvent(client, Events.ClientReady as string) as Observable<void>;
 
 /**
  * Guild create event observable
@@ -162,7 +162,7 @@ export const takeUntilEvent = <T, U>(
 export const distinctBy = <T, K>(
   keyFn: (value: T) => K
 ) => 
-  distinctUntilChanged<T, K>((prev, curr) => keyFn(prev) === keyFn(curr));
+  distinctUntilChanged<T>((prev, curr) => keyFn(prev) === keyFn(curr));
 
 /**
  * Create an observable that emits only once (for ready event)
@@ -190,7 +190,7 @@ export const allEvents$ = (client: Client): Observable<[string, unknown[]]> =>
     const eventNames = [
       Events.MessageCreate as string,
       Events.InteractionCreate as string,
-      Events.Ready as string,
+      Events.ClientReady as string,
       Events.GuildCreate as string,
       Events.GuildDelete as string,
       Events.Error as string,

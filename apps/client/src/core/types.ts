@@ -3,7 +3,7 @@
  * Centralized type definitions to ensure consistency across the codebase
  */
 
-import type { Client, GatewayIntentBits, Message, ChatInputCommandInteraction } from "discord.js";
+import type { Client, GatewayIntentBits, Message, ChatInputCommandInteraction, Partials } from "discord.js";
 
 /**
  * Bot configuration types derived from config.yaml and environment variables
@@ -70,7 +70,7 @@ export interface RateLimitWindow {
  */
 export interface DiscordClientOptions {
   intents: GatewayIntentBits[];
-  partials?: string[];
+  partials?: Partials[];
 }
 
 /**

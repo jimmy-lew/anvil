@@ -24,7 +24,7 @@ export const handlePing = (
   interaction: ChatInputCommandInteraction,
   _config: BotConfig
 ): IO<void> => {
-  const log = logCommand("ping", interaction.user.id, interaction.guildId ?? undefined ?? undefined);
+  const log = logCommand("ping", interaction.user.id, interaction.guildId ?? undefined);
   const latency = interaction.client.ws.ping;
   const reply = replyToInteraction(
     interaction,

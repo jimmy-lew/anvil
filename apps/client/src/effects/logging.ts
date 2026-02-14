@@ -186,10 +186,10 @@ export const createLogger = (prefix: string): {
   debug: (message: string, data?: unknown) => IO<void>;
   info: (message: string, data?: unknown) => IO<void>;
   warn: (message: string, data?: unknown) => IO<void>;
-  error: (message: string, error?: unknown) => IO<void>;
+  error: (message: string, err?: unknown) => IO<void>;
 } => ({
   debug: (message: string, data?: unknown) => debug(`[${prefix}] ${message}`, data),
   info: (message: string, data?: unknown) => info(`[${prefix}] ${message}`, data),
   warn: (message: string, data?: unknown) => warn(`[${prefix}] ${message}`, data),
-  error: (message: string, error?: unknown) => error(`[${prefix}] ${message}`, error),
+  error: (message: string, err?: unknown) => error(`[${prefix}] ${message}`, err),
 });

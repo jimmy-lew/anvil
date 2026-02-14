@@ -7,16 +7,13 @@
 
 import { type Message, type Guild } from "discord.js";
 import { Observable, type Subscription } from "rxjs";
-import type { IO } from "../io/io.js";
 import type { BotConfig } from "../core/types.js";
 import {
   handleReady,
   handleMessageCreate,
-  handleMessageDelete,
   handleGuildCreate,
   handleGuildDelete,
   handleError,
-  handleWarn,
 } from "../handlers/events.js";
 import { error as logError } from "../effects/logging.js";
 

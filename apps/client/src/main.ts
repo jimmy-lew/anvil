@@ -39,7 +39,7 @@ const initializeBot = async (): Promise<void> => {
     process.exit(1);
   }
   
-  const config: BotConfig = configResult as BotConfig;
+  const config: BotConfig = (configResult as { _tag: "Right"; right: BotConfig }).right;
   
   run(logStartup());
   
