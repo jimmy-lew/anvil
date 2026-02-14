@@ -6,7 +6,7 @@
  * until explicitly run
  */
 
-import type { IO } from "../io/io.js";
+import type { IO } from "@/io";
 
 /**
  * Log levels

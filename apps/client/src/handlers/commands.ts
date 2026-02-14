@@ -6,15 +6,15 @@
  */
 
 import type { ChatInputCommandInteraction } from "discord.js";
-import type { IO } from "../io/io.js";
-import type { BotConfig } from "../core/types.js";
+import type { IO } from "@/io";
+import type { BotConfig } from "@/core";
 import { 
   replyToInteraction, 
   replyWithEmbed, 
   createSuccessEmbed, 
   createErrorEmbed 
-} from "../effects/discord.js";
-import { logCommand } from "../effects/logging.js";
+} from "@/effects";
+import { logCommand } from "@/effects";
 
 /**
  * Handler for the ping command

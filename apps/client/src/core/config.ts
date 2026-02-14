@@ -8,12 +8,12 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import yaml from "js-yaml";
 import dotenv from "dotenv";
-import type { BotConfig, EnvVars } from "./types.js";
-import type { IO } from "../io/io.js";
-import type { Either } from "../utils/either.js";
-import { right, left } from "../utils/either.js";
-import type { IOEither } from "../io/io-either.js";
-import { flatMapIOEither, mapIOEither } from "../io/io-either.js";
+import type { BotConfig, EnvVars } from "@/core";
+import type { IO } from "@/io";
+import type { Either } from "@/utils";
+import { right, left } from "@/utils";
+import type { IOEither } from "@/io";
+import { flatMapIOEither, mapIOEither } from "@/io";
 
 /**
  * Load environment variables from .env file

@@ -9,13 +9,13 @@
 
 import { Client, Message, ChatInputCommandInteraction, Guild } from "discord.js";
 import { fromEvent, Subject } from "rxjs";
-import { loadConfig } from "./core/config.js";
-import { createDefaultClient, loginWithToken } from "./core/client.js";
-import type { BotConfig } from "./core/types.js";
-import { initializeCommands, createCommandObserver } from "./observers/command-observer.js";
-import { EventSubscriptionManager, createReadyObserver } from "./observers/event-observer.js";
-import { logStartup, logShutdown, error as logErrorEffect } from "./effects/logging.js";
-import { run } from "./io/io.js";
+import { loadConfig } from "@/core";
+import { createDefaultClient, loginWithToken } from "@/core";
+import type { BotConfig } from "@/core";
+import { initializeCommands, createCommandObserver } from "@/observers";
+import { EventSubscriptionManager, createReadyObserver } from "@/observers";
+import { logStartup, logShutdown, error as logErrorEffect } from "@/effects";
+import { run } from "@/io";
 
 /**
  * Event stream subjects for reactive event handling

@@ -7,11 +7,11 @@
  */
 
 import { Client, GatewayIntentBits, Partials } from "discord.js";
-import type { IO } from "../io/io.js";
-import type { DiscordClientOptions } from "./types.js";
-import type { Either } from "../utils/either.js";
-import { left, right } from "../utils/either.js";
-import { flatMap } from "../io/io.js";
+import type { IO } from "@/io";
+import type { DiscordClientOptions } from "@/core";
+import type { Either } from "@/utils";
+import { left, right } from "@/utils";
+import { flatMap } from "@/io";
 
 /**
  * Create Discord client with specified options

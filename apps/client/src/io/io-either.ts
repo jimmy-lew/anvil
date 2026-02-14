@@ -11,10 +11,10 @@
  * that can fail (which is most operations)
  */
 
-import type { Either } from "../utils/either.js";
-import { left, right, isEitherLeft } from "../utils/either.js";
-import type { IO } from "./io.js";
-import { run } from "./io.js";
+import type { Either } from "@/utils";
+import { left, right, isEitherLeft } from "@/utils";
+import type { IO } from "@/io";
+import { run } from "@/io";
 
 /**
  * IOEither type - represents a computation that:

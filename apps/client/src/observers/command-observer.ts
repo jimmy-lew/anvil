@@ -7,16 +7,16 @@
 
 import { type ChatInputCommandInteraction } from "discord.js";
 import { Observable, type Subscription } from "rxjs";
-import type { IO } from "../io/io.js";
-import type { BotConfig } from "../core/types.js";
+import type { IO } from "@/io";
+import type { BotConfig } from "@/core";
 import { 
   handlePing, 
   handleHelp, 
   handleInfo, 
   handleUnknown,
   handleCommandError 
-} from "../handlers/commands.js";
-import { error as logError } from "../effects/logging.js";
+} from "@/handlers";
+import { error as logError } from "@/effects";
 
 /**
  * Command registry - maps command names to handlers

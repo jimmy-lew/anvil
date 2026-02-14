@@ -6,9 +6,9 @@
  */
 
 import type { Message, Guild } from "discord.js";
-import type { IO } from "../io/io.js";
-import type { BotConfig } from "../core/types.js";
-import { logMessage, logGuild, logReady, logAPICall } from "../effects/logging.js";
+import type { IO } from "@/io";
+import type { BotConfig } from "@/core";
+import { logMessage, logGuild, logReady, logAPICall } from "@/effects";
 
 /**
  * Handler for the ready event

@@ -5,7 +5,7 @@
  * These would be implemented when a database is connected
  */
 
-import type { IO } from "../io/io.js";
+import type { IO } from "@/io";
 
 /**
  * Database configuration interface

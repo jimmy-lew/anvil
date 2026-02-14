@@ -13,7 +13,7 @@ import {
   Colors,
   EmbedBuilder,
 } from "discord.js";
-import type { IO } from "../io/io.js";
+import type { IO } from "@/io";
 
 /**
  * Send a message to a channel
