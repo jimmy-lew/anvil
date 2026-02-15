@@ -1,126 +1,67 @@
-/**
- * Configuration loading module
- * Loads configuration from YAML file and merges with environment variables
- * Returns IO monad to handle side effects purely
- */
+import type { CacheWithLimitsOptions, GatewayIntentsString } from 'discord.js'
+import type { Redacted } from 'effect'
+import { readFile } from 'node:fs/promises'
+import { Partials } from 'discord.js'
+import { Config, Context, Effect, Layer, Schema } from 'effect'
+import { parse as parseYaml } from 'yaml'
 
-import * as fs from "node:fs";
-import * as path from "node:path";
-import yaml from "js-yaml";
-import dotenv from "dotenv";
-import type { BotConfig, EnvVars } from "@/core";
-import type { IO } from "@/io";
-import type { Either } from "@/utils";
-import { right, left } from "@/utils";
-import type { IOEither } from "@/io";
-import { flatMapIOEither, mapIOEither } from "@/io";
+const Environment = Schema.Literal('dev', 'staging', 'uat', 'prod')
+type PartialKey = keyof typeof Partials
 
-/**
- * Load environment variables from .env file
- * Pure side effect wrapped in IOEither
- */
-const loadEnvVars = (): IOEither<Error, EnvVars> =>
-  () => {
-    const result = dotenv.config();
-    if (result.error) {
-      return left(new Error(`Failed to load .env file: ${result.error.message}`));
-    }
+interface ClientConfig {
+  readonly token: Redacted.Redacted
+  readonly id: string
+  readonly env: typeof Environment.Type
+  readonly intents: GatewayIntentsString[]
+  readonly partials: Partials[]
+  readonly caches: CacheWithLimitsOptions
+}
 
-    const envVars: EnvVars = {
-      BOT_TOKEN: process.env.BOT_TOKEN ?? "",
-      DATABASE_URL: process.env.DATABASE_URL,
-      REDIS_URL: process.env.REDIS_URL,
-      CLIENT_ID: process.env.CLIENT_ID,
-      GUILD_ID: process.env.GUILD_ID,
-      LOG_LEVEL: process.env.LOG_LEVEL,
-      NODE_ENV: process.env.NODE_ENV ?? "development",
-    };
+class ConfigError extends Schema.TaggedError<ConfigError>()(
+  'ConfigError',
+  {},
+) {}
 
-    return right(envVars);
-  };
+const _loadYamlConfig = Effect.fn('Config.loadYamlConfig')(function* (
+  path: string,
+) {
+  return yield* Effect.tryPromise({
+    try: () => readFile(path, 'utf8'),
+    catch: () => {},
+  }).pipe(Effect.flatMap(parseYaml))
+})
 
-/**
- * Load YAML configuration file
- * Pure side effect wrapped in IOEither
- */
-const loadYamlConfig = (): IOEither<Error, BotConfig> =>
-  () => {
-    const configPath = path.resolve("config/config.yaml");
+export class ConfigService extends Context.Tag('ConfigService')<
+  ConfigService,
+  ClientConfig
+>() {
+  static readonly layer = Layer.effect(
+    ConfigService,
+    Effect.gen(function* () {
+      const token = yield* Config.redacted('DISCORD_BOT_TOKEN')
+      const id = yield* Config.string('DISCORD_CLIENT_ID')
+      const env = yield* Schema.Config('NODE_ENV', Environment).pipe(Config.withDefault('dev'))
 
-    try {
-      const fileContents = fs.readFileSync(configPath, "utf8");
-      const config = yaml.load(fileContents) as BotConfig;
-      return right(config);
-    } catch (error) {
-      if (error instanceof Error) {
-        return left(new Error(`Failed to load config.yaml: ${error.message}`));
+      if (!token || !id)
+        return yield* new ConfigError('Discord credentials missing')
+
+      const intents: GatewayIntentsString[] = [
+        'Guilds',
+        'GuildMessages',
+        'MessageContent',
+        'GuildMessageReactions',
+        'GuildMembers',
+        'GuildModeration',
+        'DirectMessages',
+        'DirectMessageReactions',
+      ]
+      const partialKeys: PartialKey[] = []
+      const partials: Partials[] = partialKeys.map(p => Partials[p])
+      const caches: CacheWithLimitsOptions = {
+        MessageManager: 10_000,
       }
-      return left(new Error("Failed to load config.yaml: Unknown error"));
-    }
-  };
 
-/**
- * Validate that required configuration fields are present
- * Returns Left with error message if validation fails
- */
-const validateEnvVars = (envVars: EnvVars): Either<Error, EnvVars> => {
-  if (!envVars.BOT_TOKEN) {
-    return left(new Error("BOT_TOKEN is required in .env file"));
-  }
-  return right(envVars);
-};
-
-/**
- * Merge YAML config with environment variable overrides
- * Environment variables take precedence for sensitive values
- */
-const mergeConfig = (yamlConfig: BotConfig, envVars: EnvVars): BotConfig => ({
-  ...yamlConfig,
-  logLevel: (envVars.LOG_LEVEL as BotConfig["logLevel"]) ?? yamlConfig.logLevel,
-});
-
-/**
- * Load and validate the complete application configuration
- * Composes multiple IO operations into a single configuration loader
- */
-export const loadConfig = (): IOEither<Error, BotConfig> => {
-  const envIO = loadEnvVars();
-  const yamlIO = loadYamlConfig();
-
-  return flatMapIOEither(
-    mapIOEither(envIO, (envVars) => ({ envVars, validated: validateEnvVars(envVars) })),
-    ({ envVars, validated }) =>
-      () => {
-        if (validated._tag === "Left") {
-          return validated;
-        }
-        const yamlResult = yamlIO();
-        if (yamlResult._tag === "Left") {
-          return yamlResult;
-        }
-        const mergedConfig = mergeConfig(yamlResult.right, envVars);
-        return right(mergedConfig);
-      }
-  );
-};
-
-/**
- * Get a specific configuration value
- * Helper function for accessing nested config values
- */
-export const getConfigValue = <K extends keyof BotConfig>(
-  key: K
-): IOEither<Error, BotConfig[K]> =>
-  mapIOEither(loadConfig(), (config) => config[key]);
-
-/**
- * Get environment variable value
- */
-export const getEnvVar = (key: keyof EnvVars): IO<EnvVars[keyof EnvVars] | undefined> =>
-  () => {
-    const result = loadEnvVars()();
-    if (result._tag === "Left") {
-      return undefined;
-    }
-    return result.right[key];
-  };
+      return ConfigService.of({ token, id, env, intents, partials, caches })
+    }),
+  )
+}

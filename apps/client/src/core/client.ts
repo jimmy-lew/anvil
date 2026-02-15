@@ -1,134 +1,59 @@
-/**
- * Discord.js Client Setup
- * 
- * Creates and configures the Discord client as an IO monad
- * This allows us to treat client initialization as a pure side effect
- * that can be composed with other IO actions
- */
+import type { ClientEvents } from 'discord.js'
+import type { Event } from '@/types'
+import { Client as DiscordClient, Events, Options } from 'discord.js'
+import { Context, Effect, Layer, Queue, Redacted, Runtime, Schema, Stream } from 'effect'
+import { ConfigService } from './config'
 
-import { Client, GatewayIntentBits, Partials } from "discord.js";
-import type { IO } from "@/io";
-import type { DiscordClientOptions } from "@/core";
-import type { Either } from "@/utils";
-import { left, right } from "@/utils";
-import { flatMap } from "@/io";
+class DiscordLoginError extends Schema.TaggedError<DiscordLoginError>()(
+  'DiscordLoginError',
+  {},
+) { }
 
-/**
- * Create Discord client with specified options
- * Returns IO<Client> to defer side effects
- */
-export const createClient: (options: DiscordClientOptions) => IO<Client> = 
-  (options) => () => {
-    const client = new Client({
-      intents: options.intents,
-      partials: options.partials,
-    });
-    return client;
-  };
+const createEventStream = Effect.fn('client.createEventStream')(function* (client: DiscordClient) {
+  const queue = yield* Queue.unbounded<Event>()
+  const events: Array<keyof ClientEvents> = [Events.ClientReady, Events.MessageCreate]
+  const runtime = yield* Effect.runtime()
+  const runFork = Runtime.runFork(runtime)
+  events.map(event => client.on(event, (...args) => {
+    const _event = { event, data: args, timestamp: Date.now() } as Event
+    runFork(Queue.offer(queue, _event))
+  }))
 
-/**
- * Create client with default intents for a bot
- * Default includes: Guilds, GuildMessages, MessageContent, GuildMembers
- */
-export const createDefaultClient: () => IO<Client> = () => 
-  createClient({
-    intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.MessageContent,
-      GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.GuildPresences,
-    ],
-    partials: [Partials.Channel as Partials],
-  });
+  return Stream.fromQueue(queue)
+})
 
-/**
- * Login to Discord with token
- * Returns IOEither<Error, Client> for proper error handling
- */
-export const loginWithToken: (client: Client, token: string) => IO<Either<Error, Client>> = 
-  (client, token) => () => {
-    try {
-      client.login(token);
-      return right(client);
-    } catch (error) {
-      if (error instanceof Error) {
-        return left(error);
-      }
-      return left(new Error(String(error)));
-    }
-  };
+const createClient = Effect.fn('client.createClient')(function* () {
+  const { intents, partials, caches } = yield* ConfigService
+  return new DiscordClient({
+    intents,
+    partials,
+    makeCache: Options.cacheWithLimits({ ...Options.DefaultMakeCacheSettings, ...caches }),
+  })
+})
 
-/**
- * Destroy the Discord client
- */
-export const destroyClient: (client: Client) => IO<void> = 
-  (client) => () => {
-    client.destroy();
-  };
+export class Client extends Context.Tag('Client')<
+  Client,
+  {
+    readonly client: DiscordClient
+    readonly stream: Stream.Stream<any, never, never>
+  }
+>() {
+  static readonly layer = Layer.effect(
+    Client,
+    Effect.gen(function* () {
+      const config = yield* ConfigService
+      const client = yield* createClient()
 
-/**
- * Get client ready state
- */
-export const isReady: (client: Client) => IO<boolean> = 
-  (client) => () => client.isReady();
+      yield* Effect.logInfo('Initialising client')
 
-/**
- * Get client user
- */
-export const getClientUser: (client: Client) => IO<typeof client.user | null> = 
-  (client) => () => client.user;
+      const stream = yield* createEventStream(client)
 
-/**
- * Get client application ID
- */
-export const getApplicationId: (client: Client) => IO<string | null> = 
-  (client) => () => client.application?.id ?? null;
+      yield* Effect.tryPromise({
+        try: () => client.login(Redacted.value(config.token)),
+        catch: error => new DiscordLoginError(`Failed to login: ${error}`),
+      })
 
-/**
- * Fetch application info
- * Returns IO that produces a Promise for async operation
- */
-export const fetchApplicationInfo: (client: Client) => IO<Promise<unknown>> = 
-  (client) => () => client.application?.fetch() ?? Promise.reject(new Error("No application"));
-
-/**
- * Composed client lifecycle operations
- */
-export const setupAndLogin = (
-  token: string,
-  options?: DiscordClientOptions
-): IO<Either<Error, Client>> => {
-  const clientIO = options ? createClient(options) : createDefaultClient();
-  
-  return flatMap(clientIO, (client) => 
-    loginWithToken(client, token)
-  );
-};
-
-/**
- * Create a client event handler helper
- * Wraps the event subscription in IO
- */
-export const onClientEvent: <T>(
-  client: Client,
-  event: string,
-  listener: (...args: T[]) => void
-) => IO<void> = 
-  (client, event, listener) => () => {
-    client.on(event, listener);
-  };
-
-/**
- * Wait for client to be ready
- * Returns IO that resolves when 'ready' event fires
- */
-export const waitForReady: (client: Client) => IO<Promise<void>> = 
-  (client) => () => 
-    new Promise((resolve) => {
-      if (client.isReady()) {
-        resolve();
-      } else {
-        client.once("ready", () => resolve());
-      }
-    });
+      return Client.of({ client, stream })
+    }),
+  )
+}
