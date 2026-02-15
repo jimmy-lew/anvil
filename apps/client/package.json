@@ -1,32 +1,20 @@
 {
   "name": "@anvil/client",
-  "type": "module",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Discord bot using TypeScript with functional and functional reactive programming principles",
-  "author": "Jimmy Lew",
-  "license": "MIT",
-  "packageManager": "pnpm@10.19.0",
   "scripts": {
-    "dev": "tsx watch src/main.ts",
     "build": "tsdown",
-    "start": "node dist/main.js",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "discord.js": "^14.16.3",
-    "dotenv": "^16.4.7",
-    "js-yaml": "^4.1.0",
-    "rxjs": "^7.8.2"
+    "typecheck": "tsc --noEmit",
+    "prepare": "effect-language-service patch"
   },
   "devDependencies": {
-    "@antfu/ni": "catalog:",
-    "@anvil/eslint": "workspace:*",
-    "@anvil/tsconf": "workspace:*",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "catalog:",
-    "tsx": "^4.19.2",
+    "@anvil/eslint": "workspace:^",
+    "@effect/language-service": "^0.73.1",
+    "eslint": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "dependencies": {
+    "discord.js": "catalog:",
+    "effect": "catalog:",
+    "yaml": "catalog:"
   }
 }
