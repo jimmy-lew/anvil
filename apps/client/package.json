@@ -1,0 +1,20 @@
+{
+  "name": "@anvil/client",
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "prepare": "effect-language-service patch"
+  },
+  "devDependencies": {
+    "@anvil/eslint": "workspace:^",
+    "@effect/language-service": "^0.73.1",
+    "eslint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "discord.js": "catalog:",
+    "effect": "catalog:",
+    "yaml": "catalog:"
+  }
+}
